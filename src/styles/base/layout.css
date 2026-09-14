@@ -1,0 +1,98 @@
+/**
+ * Layout primitives — the container, section bands, the ambient background
+ * wash, and the accessibility skip link.
+ */
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  position: relative;
+  z-index: var(--z-content);
+  border-bottom: 1px solid var(--surface-hairline);
+}
+
+.section__inner {
+  padding-block: var(--section-pad);
+}
+
+/* Background treatment. Deliberately says nothing about light or dark — a
+   section's polarity comes from the `.theme-*` class beside it, and `--surface-bg`
+   resolves to whichever that theme defines. */
+.section--solid {
+  background-color: var(--surface-bg);
+}
+
+.section--solid-alt {
+  background-color: var(--surface-bg-alt);
+}
+
+/* Lets the ambient wash show through rather than covering it. */
+.section--translucent {
+  background-color: transparent;
+}
+
+/* Intro block sitting above each section's content grid */
+.section__head {
+  max-width: 1000px;
+}
+
+/* Responsive auto-fit card grid. --grid-min sets the smallest a column may get
+   before the row wraps; sections override it rather than redeclaring the grid. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, 280px), 100%), 1fr));
+  gap: var(--grid-gap);
+  margin-top: var(--space-xl);
+}
+
+/* Fixed ambient colour wash behind everything. Decorative only. Tuned for the
+   light page — the tints stay faint so body copy keeps its contrast. */
+.backdrop {
+  position: fixed;
+  z-index: var(--z-backdrop);
+  inset: 0;
+  background:
+    radial-gradient(52vw 52vw at 78% 8%, rgb(226 100 58 / 11%), transparent 62%),
+    radial-gradient(46vw 46vw at 8% 62%, rgb(92 152 128 / 9%), transparent 65%),
+    radial-gradient(60vw 40vw at 50% 108%, rgb(226 100 58 / 7%), transparent 70%);
+  pointer-events: none;
+}
+
+/* Visible only once focused, for keyboard users landing on the page. */
+.skip-link {
+  position: absolute;
+  z-index: calc(var(--z-header) + 1);
+  top: var(--space-2xs);
+  left: var(--space-2xs);
+  padding: var(--space-xs) var(--space-sm);
+  transform: translateY(-150%);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--color-ink);
+}
+
+/* Available to screen readers, removed from the visual layout. */
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+}

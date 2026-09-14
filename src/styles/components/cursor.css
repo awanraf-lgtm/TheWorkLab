@@ -1,0 +1,90 @@
+/**
+ * Custom cursor — a copper dot with a trailing ring.
+ *
+ * Strictly a progressive enhancement. It is only ever shown when:
+ *   - the device has a fine pointer (mouse/trackpad, not touch), and
+ *   - the visitor has not asked for reduced motion, and
+ *   - scripts/cursor.js has successfully set `data-cursor="on"`.
+ *
+ * If any of those fail, the native cursor is never hidden.
+ *
+ * The ring is ink-toned because the page is light-first. It crosses the one
+ * dark section, so it also carries a blend mode that keeps it visible there.
+ */
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  z-index: var(--z-cursor);
+  top: 0;
+  left: 0;
+  display: none;
+  border-radius: var(--radius-pill);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 12px rgb(226 100 58 / 90%);
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1px solid rgb(58 63 71 / 45%);
+  background-color: rgb(58 63 71 / 5%);
+  backdrop-filter: blur(1px);
+
+  /* Keeps the ring legible over both polarities without tracking which
+     section it happens to be above. */
+  mix-blend-mode: difference;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.cursor-dot[data-live='1'],
+.cursor-ring[data-live='1'] {
+  opacity: 1;
+}
+
+/* The ring reacts to what sits under the pointer. */
+.cursor-ring[data-on='link'] {
+  border-color: rgb(226 100 58 / 95%);
+  background-color: rgb(226 100 58 / 18%);
+}
+
+.cursor-ring[data-on='card'] {
+  border-color: rgb(58 63 71 / 60%);
+  background-color: rgb(58 63 71 / 8%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-cursor='on'] body,
+  html[data-cursor='on'] a,
+  html[data-cursor='on'] button,
+  html[data-cursor='on'] [data-tilt] {
+    cursor: none;
+  }
+
+  html[data-cursor='on'] .cursor-dot,
+  html[data-cursor='on'] .cursor-ring {
+    display: block;
+  }
+}
+
+/* Never hide the real cursor for visitors who asked for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}

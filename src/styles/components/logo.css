@@ -1,0 +1,62 @@
+/**
+ * The brand mark — two offset squares whose overlap is filled in copper.
+ * Built from CSS rather than an image so it stays crisp and recolours with the
+ * surface it sits on. The mark is decorative; the wordmark beside it carries
+ * the accessible name.
+ */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--surface-heading);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: var(--surface-heading);
+}
+
+.logo__mark {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.logo__square,
+.logo__overlap {
+  position: absolute;
+  display: block;
+}
+
+.logo__square {
+  width: 62.5%;
+  height: 62.5%;
+  border: 1.5px solid currentcolor;
+  border-radius: 1px;
+}
+
+.logo__square:first-child {
+  top: 0;
+  left: 0;
+}
+
+.logo__square:nth-child(2) {
+  top: 37.5%;
+  left: 37.5%;
+}
+
+/* The intersection — the whole idea of the mark, in the one accent colour. */
+.logo__overlap {
+  top: 37.5%;
+  left: 37.5%;
+  width: 25%;
+  height: 25%;
+  background-color: var(--color-accent);
+}

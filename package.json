@@ -1,0 +1,36 @@
+{
+  "name": "theworklab-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing site for TheWorkLab — AI automation audit, consultancy and development.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . && stylelint \"src/**/*.css\"",
+    "lint:fix": "eslint . --fix && stylelint \"src/**/*.css\" --fix",
+    "format": "prettier --write \"**/*.{js,css,html,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,css,html,json,md}\"",
+    "check": "npm run format:check && npm run lint && npm run build"
+  },
+  "dependencies": {
+    "three": "^0.160.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "stylelint": "^16.12.0",
+    "stylelint-config-standard": "^36.0.1",
+    "vite": "^6.0.7"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ]
+}

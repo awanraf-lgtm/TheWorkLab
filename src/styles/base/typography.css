@@ -1,0 +1,89 @@
+/**
+ * Typography — display faces, headings, prose and the small uppercase
+ * "eyebrow" label that introduces every section.
+ *
+ * Colours come from the surface theme in scope, so these rules are identical
+ * on light and dark sections.
+ */
+
+.display-1,
+.display-2,
+.display-3 {
+  color: var(--surface-heading);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+
+  /* The tight negative tracking pulls word spaces shut at display sizes —
+     without this, uppercase pairs read as one word ("FEATUREYOUR"). */
+  word-spacing: 0.08em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.display-1 {
+  margin: clamp(1.25rem, 3vw, 2.125rem) 0 0;
+  font-size: var(--text-display-1);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+}
+
+.display-1__line {
+  display: block;
+}
+
+.display-2 {
+  margin: var(--space-md) 0;
+  font-size: var(--text-display-2);
+  line-height: var(--leading-tight);
+}
+
+.display-3 {
+  margin: 0 0 0.875rem;
+  font-size: var(--text-display-3);
+  letter-spacing: var(--tracking-heading);
+  text-transform: none;
+}
+
+.accent-text {
+  color: var(--surface-accent);
+}
+
+/* Small uppercase label: "01 / The problem" */
+.eyebrow {
+  display: block;
+  color: var(--surface-accent);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.eyebrow--muted {
+  color: var(--surface-muted);
+}
+
+/* Body copy */
+.lede {
+  max-width: var(--measure);
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.prose {
+  margin: 0;
+  font-size: 0.90625rem; /* 14.5px */
+  line-height: 1.7;
+}
+
+.statement {
+  max-width: 900px;
+  margin: var(--space-xl) 0 0;
+  color: var(--surface-heading);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-heading);
+  text-wrap: pretty;
+}

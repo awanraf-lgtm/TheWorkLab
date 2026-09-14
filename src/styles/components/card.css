@@ -1,0 +1,49 @@
+/**
+ * Cards — the glass panels used for problems, methods and pricing tiers.
+ *
+ * A card takes its colours from the surface theme in scope, so the same markup
+ * works on a light or a dark section. `data-tilt` opts a card into the
+ * pointer-tracking tilt enhancement (see scripts/tilt.js).
+ */
+
+.card {
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  border: 1px solid var(--surface-card-border);
+  border-radius: var(--radius-md);
+  background: var(--surface-card-bg);
+  backdrop-filter: var(--blur-glass);
+  box-shadow: var(--surface-card-shadow);
+  color: var(--surface-text);
+}
+
+/* Highlighted tier / deliverable */
+.card--accent {
+  border-color: rgb(226 100 58 / 35%);
+  background: var(--glass-accent);
+}
+
+.card__numeral {
+  color: var(--surface-accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-numeral);
+  line-height: 1;
+}
+
+.card__title {
+  margin: 1.25rem 0 var(--space-xs);
+  color: var(--surface-heading);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  letter-spacing: -0.01em;
+}
+
+/* Tilt is a pointer-only enhancement; the transition is declared here so the
+   card settles smoothly when the pointer leaves. */
+[data-tilt] {
+  transform-style: preserve-3d;
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}

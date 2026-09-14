@@ -1,0 +1,27 @@
+/**
+ * Scroll reveal — elements marked `data-reveal` fade and rise into place.
+ *
+ * The hidden state is applied by a `js-reveal` class that scripts/reveal.js
+ * adds to <html> on boot. Without JavaScript, or with reduced motion, the
+ * class is never added and the content is simply visible — never a blank page.
+ */
+
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--duration-slow) ease,
+    transform var(--duration-slow) ease;
+}
+
+.js-reveal [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

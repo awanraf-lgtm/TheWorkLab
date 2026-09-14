@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TheWorkLab — Automate the hidden work your systems leave behind</title>
+    <meta
+      name="description"
+      content="A two-week, fixed-fee audit of one department. We find the exports, spreadsheets and re-keying your core systems cannot handle, then rank what is worth automating."
+    />
+    <meta name="theme-color" content="#F5F3EF" />
+    <link rel="canonical" href="https://example.com/" />
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TheWorkLab" />
+    <meta property="og:title" content="TheWorkLab — Automate the hidden work your systems leave behind" />
+    <meta
+      property="og:description"
+      content="A two-week, fixed-fee audit of one department. We find the work your core systems cannot handle, then rank what is worth automating."
+    />
+    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:image" content="https://example.com/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Fonts. preconnect opens the connection before the CSS request lands. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="module" src="/src/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Custom cursor layers. Decorative; shown only once scripts take over. -->
+    <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
+    <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+
+    <!-- Ambient colour wash behind the page. -->
+    <div class="backdrop" aria-hidden="true"></div>
+
+    <header class="site-header theme-light">
+      <div class="container site-header__inner">
+        <a class="logo" href="#top">
+          <span class="logo__mark" aria-hidden="true">
+            <i class="logo__square"></i>
+            <i class="logo__square"></i>
+            <i class="logo__overlap"></i>
+          </span>
+          TheWorkLab
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a class="site-nav__link" href="#problem">Problems</a>
+          <a class="site-nav__link" href="#method">Method</a>
+          <!-- Hidden for now, with the Pricing section. Remove `hidden` to restore. -->
+          <a class="site-nav__link" href="#pricing" hidden>Pricing</a>
+        </nav>
+
+        <!-- Sits outside the nav: an action, not a destination. -->
+        <a class="btn btn--primary btn--sm site-header__cta" href="#book" data-booking-link> Book an audit </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================================================================
+           Hero
+           ============================================================= -->
+      <section class="section section--translucent hero theme-light" id="top">
+        <div class="container hero__inner">
+          <div>
+            <!-- Lines are explicit: the display face is set tight enough that
+                 arbitrary reflow collides words. Each line still wraps on its
+                 own when the viewport is too narrow to hold it. -->
+            <h1 class="display-1">
+              <span class="display-1__line">Automate the hidden work</span>
+              <span class="display-1__line">your systems</span>
+              <span class="display-1__line accent-text">leave behind.</span>
+            </h1>
+
+            <p class="hero__lede">
+              We uncover the exports, spreadsheets, re-keying, and routine decisions your core systems cannot handle —
+              then automate the work consuming your team's time.
+            </p>
+
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#book" data-booking-link>Book an audit</a>
+              <a class="btn btn--ghost" href="#method">Learn our methods</a>
+            </div>
+
+            <dl class="hero__stats">
+              <div class="stat">
+                <dt class="visually-hidden">Engagement length</dt>
+                <dd class="stat__value">2</dd>
+                <dd class="stat__label">weeks, fixed fee</dd>
+              </div>
+              <div class="stat">
+                <dt class="visually-hidden">Scope</dt>
+                <dd class="stat__value">1</dd>
+                <dd class="stat__label">department</dd>
+              </div>
+              <div class="stat">
+                <dt class="visually-hidden">Depth</dt>
+                <dd class="stat__value">~40</dd>
+                <dd class="stat__label">tasks scored per role</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- The brand mark in three dimensions. Decorative: the headline
+               beside it already carries the meaning. -->
+          <div class="hero__visual" aria-hidden="true">
+            <worklab-knot-3d accent="#E2643A" glass="#EDE9E2" ground="#F5F3EF"></worklab-knot-3d>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           01 — The problem
+           ============================================================= -->
+      <section class="section theme-dark" id="problem" aria-labelledby="problem-heading">
+        <div class="container section__inner">
+          <div class="section__head" data-reveal>
+            <span class="eyebrow">01 / The problem</span>
+            <h2 class="display-2" id="problem-heading">The feature your system never built</h2>
+            <p class="lede">
+              Your core platform handles the standard workflow. Everything it cannot do survives as exports,
+              spreadsheets, re-keying, and repetitive checks — simple, deterministic work that quietly grows into
+              thousands of hours as volume increases.
+            </p>
+          </div>
+
+          <div class="grid">
+            <article class="card" data-reveal data-tilt>
+              <p class="card__numeral">01</p>
+              <h3 class="card__title">The export</h3>
+              <p class="prose">
+                Someone downloads a CSV every Tuesday because the system's report is not the report the team actually
+                needs.
+              </p>
+            </article>
+
+            <article class="card" data-reveal data-tilt>
+              <p class="card__numeral">02</p>
+              <h3 class="card__title">The side calculation</h3>
+              <p class="prose">
+                One person maintains a spreadsheet of formulas and adjustments that drives decisions the core system
+                cannot make — or even see.
+              </p>
+            </article>
+
+            <article class="card" data-reveal data-tilt>
+              <p class="card__numeral">03</p>
+              <h3 class="card__title">The re-key</h3>
+              <p class="prose">
+                The final result is manually entered into another system because the two platforms were never built to
+                work together.
+              </p>
+            </article>
+          </div>
+
+          <!-- Hidden for now. Remove the `hidden` attribute to restore. -->
+          <p class="statement" data-reveal hidden>
+            An AI tool bought against the documented 70% automates work that was already working.
+          </p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           02 — The method
+           ============================================================= -->
+      <section class="section section--translucent theme-light" id="method" aria-labelledby="method-heading">
+        <div class="container section__inner">
+          <div class="section__head" data-reveal>
+            <span class="eyebrow">02 / The method</span>
+            <h2 class="display-2" id="method-heading">The judgment your system cannot make</h2>
+            <p class="lede">
+              Some work cannot be reduced to fixed rules: reprioritizing requests, reassigning work, and choosing the
+              next best action as conditions change. These decisions require context and adaptation, but not deep
+              expertise — so people keep making the same low-level judgment calls by hand.
+            </p>
+          </div>
+
+          <div class="grid">
+            <article class="card" data-reveal data-tilt>
+              <p class="card__numeral">01</p>
+              <h3 class="card__title">The daily reprioritization</h3>
+              <p class="prose">
+                Every new request forces someone to reshuffle the backlog by urgency, capacity, and customer.
+              </p>
+            </article>
+
+            <article class="card" data-reveal data-tilt>
+              <p class="card__numeral">02</p>
+              <h3 class="card__title">The manual reassignment</h3>
+              <p class="prose">
+                When availability or priorities change, someone has to decide who should take what next.
+              </p>
+            </article>
+
+            <article class="card" data-reveal data-tilt>
+              <p class="card__numeral">03</p>
+              <h3 class="card__title">The next-best-action decision</h3>
+              <p class="prose">
+                A person repeatedly weighs customer history, current conditions, and business priorities to choose what
+                happens next.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           03 — Pricing
+           Hidden for now, along with its header and footer nav links.
+           Remove the `hidden` attribute on all three to restore.
+           ============================================================= -->
+      <section class="section theme-dark" id="pricing" aria-labelledby="pricing-heading" hidden>
+        <div class="container section__inner">
+          <div class="section__head" data-reveal>
+            <span class="eyebrow">03 / Pricing</span>
+            <h2 class="display-2" id="pricing-heading">Fixed fee, agreed before we start.</h2>
+            <p class="lede">
+              Scoped on one 30-minute call. No day rates, no change orders, and no engagement that quietly extends
+              itself.
+            </p>
+          </div>
+
+          <div class="grid pricing__grid">
+            <article class="card tier" data-reveal data-tilt>
+              <span class="eyebrow eyebrow--muted">Tier 01</span>
+              <h3 class="tier__name">Department audit</h3>
+              <p class="tier__price">[$X,XXX]</p>
+              <p class="tier__meta">Two weeks · one department</p>
+              <ul class="tier__features">
+                <li>Two days of on-site observation</li>
+                <li>Task register, classified and scored</li>
+                <li>Handoff map</li>
+                <li>Costed plan, top ten opportunities</li>
+                <li>Ninety-minute readout with your team</li>
+              </ul>
+              <a class="btn btn--contrast btn--block" href="#book" data-booking-link>Book this</a>
+            </article>
+
+            <article class="card tier tier--featured theme-light" data-reveal data-tilt>
+              <span class="eyebrow">Tier 02 · Most booked</span>
+              <h3 class="tier__name">Audit + roadmap</h3>
+              <p class="tier__price">[$XX,XXX]</p>
+              <p class="tier__meta">Four weeks · up to three departments</p>
+              <ul class="tier__features">
+                <li>Everything in the department audit</li>
+                <li>Cross-department handoff analysis</li>
+                <li>Build-versus-buy call on each opportunity</li>
+                <li>Ninety-day sequenced plan with owners</li>
+                <li>Two follow-up sessions at 30 and 60 days</li>
+              </ul>
+              <a class="btn btn--primary btn--block" href="#book" data-booking-link>Book this</a>
+            </article>
+
+            <article class="card tier" data-reveal data-tilt>
+              <span class="eyebrow eyebrow--muted">Tier 03</span>
+              <h3 class="tier__name">Build</h3>
+              <p class="tier__price tier__price--quote">Quoted per opportunity</p>
+              <p class="tier__meta">From the register · fixed scope</p>
+              <ul class="tier__features">
+                <li>We implement what we ranked</li>
+                <li>Scope drawn from the audit, not a fresh discovery</li>
+                <li>Handover documentation and internal training</li>
+                <li>Audit fee credited against the first build</li>
+                <li>Available to audit clients only</li>
+              </ul>
+              <a class="btn btn--contrast btn--block" href="#book" data-booking-link>Talk to us</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           04 — Start here
+           ============================================================= -->
+      <section class="section section--translucent theme-light" id="book" aria-labelledby="book-heading">
+        <div class="container booking__inner">
+          <div>
+            <span class="eyebrow">04 / Start here</span>
+            <h2 class="display-2" id="book-heading">Start with one department.</h2>
+            <p class="lede booking__lede">
+              Thirty minutes on a call is enough to tell you whether your department is a fit, and we will say so if it
+              isn't. If it is, you get a fixed price and a start date on the same call.
+            </p>
+
+            <div class="booking__actions">
+              <a class="btn btn--primary" href="#book" data-booking-link>Book a scoping call</a>
+              <a class="btn btn--ghost" href="#method">Learn our methods</a>
+            </div>
+          </div>
+
+          <div class="agenda" data-tilt>
+            <h3 class="agenda__title">Scoping call / agenda</h3>
+            <dl class="agenda__list">
+              <div class="agenda__item">
+                <dt class="agenda__time">00:00</dt>
+                <dd class="agenda__topic">Which department, and who owns the budget</dd>
+              </div>
+              <div class="agenda__item">
+                <dt class="agenda__time">00:08</dt>
+                <dd class="agenda__topic">What the system of record is, and where people work around it</dd>
+              </div>
+              <div class="agenda__item">
+                <dt class="agenda__time">00:18</dt>
+                <dd class="agenda__topic">Whether two days of observation is possible, and when</dd>
+              </div>
+              <div class="agenda__item">
+                <dt class="agenda__time">00:26</dt>
+                <dd class="agenda__topic">Fixed price, start date, or a straight no</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer theme-light">
+      <div class="container site-footer__inner">
+        <div class="site-footer__top">
+          <div>
+            <a class="logo" href="#top">
+              <span class="logo__mark" aria-hidden="true">
+                <i class="logo__square"></i>
+                <i class="logo__square"></i>
+                <i class="logo__overlap"></i>
+              </span>
+              TheWorkLab
+            </a>
+            <p class="site-footer__tagline">AI automation audit · consultancy · development</p>
+          </div>
+
+          <nav class="site-footer__nav" aria-label="Footer">
+            <a class="site-footer__link" href="#problem">Problems</a>
+            <a class="site-footer__link" href="#method">Method</a>
+            <a class="site-footer__link" href="#pricing" hidden>Pricing</a>
+            <a class="site-footer__link" href="#book" data-booking-link>Book a call</a>
+          </nav>
+        </div>
+
+        <p class="site-footer__legal">© 2026 TheWorkLab · [Company registration] · [Registered address]</p>
+      </div>
+    </footer>
+  </body>
+</html>

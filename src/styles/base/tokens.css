@@ -1,0 +1,137 @@
+/**
+ * Design tokens — the raw palette and scales.
+ *
+ * These are the primitive values only: named colours, sizes, easings. Nothing
+ * here knows whether it will be used on a light or a dark surface — that
+ * mapping lives in `themes.css`, and components should read the semantic
+ * `--surface-*` tokens defined there rather than reaching in here directly.
+ */
+
+:root {
+  /* ---------------------------------------------------------------------
+   * Colour — ink (dark) surfaces
+   * ------------------------------------------------------------------ */
+  --color-ink: #0d0e10;
+  --color-ink-raised: #101215;
+  --color-ink-deep: #14161a;
+  --color-ink-shell: #1a1c20;
+  --color-ink-line: #22252b;
+  --color-ink-line-soft: #24272d;
+  --color-ink-line-faint: #1b1e23;
+
+  /* Colour — paper (light) surfaces */
+  --color-paper: #f5f3ef;
+  --color-paper-alt: #efede8;
+  --color-paper-raised: #faf9f6;
+  --color-paper-line: #dedad4;
+  --color-paper-line-soft: #dcd8d2;
+
+  /* Colour — accent */
+  --color-accent: #e2643a;
+  --color-accent-bright: #f0794f;
+  --color-accent-deep: #b4522c; /* accent on light, for contrast */
+  --color-sage: #5c9880; /* "augment" classification */
+
+  /* Colour — text on dark */
+  --color-text: #9ba1aa;
+  --color-text-strong: #f1eee9;
+  --color-text-heading: #f5f3ef;
+  --color-text-muted: #6e747e;
+  --color-text-faint: #4e545d;
+
+  /* Colour — text on light */
+  --color-text-on-paper: #3a3f47;
+  --color-text-on-paper-strong: #14161a;
+  --color-text-on-paper-muted: #767e8a;
+
+  /* Quietest text on light. Do not lighten: this is the palest tone that still
+     clears the 4.5:1 contrast minimum against the paper surfaces. */
+  --color-text-on-paper-faint: #63696f;
+
+  /* Glass gradients, per surface polarity */
+  --glass-dark: linear-gradient(160deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 1.5%));
+  --glass-paper: linear-gradient(160deg, rgb(255 255 255 / 85%), rgb(255 255 255 / 45%));
+  --glass-accent: linear-gradient(160deg, rgb(226 100 58 / 12%), rgb(255 255 255 / 2%));
+
+  /* ---------------------------------------------------------------------
+   * Typography
+   * ------------------------------------------------------------------ */
+  --font-display: 'Miriam Libre', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'JetBrains Mono', ui-monospace, sfmono-regular, menlo, monospace;
+
+  --text-xs: 0.6875rem; /* 11px — eyebrows, meta */
+  --text-sm: 0.75rem; /* 12px — nav, buttons */
+  --text-base: 0.9375rem; /* 15px — body */
+  --text-md: 1rem; /* 16px — section intros */
+  --text-lg: 1.3125rem; /* 21px — card headings */
+  --text-xl: 1.5rem; /* 24px — pricing headings */
+
+  --text-display-1: clamp(2.5rem, 7.2vw, 5rem); /* hero */
+  --text-display-2: clamp(1.875rem, 4.6vw, 4rem); /* section headings */
+  --text-display-3: clamp(1.375rem, 2.4vw, 1.75rem); /* deliverable headings */
+  --text-stat: 1.875rem; /* hero stat numerals */
+  --text-numeral: 3.25rem; /* oversized card numerals */
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.03em;
+  --tracking-heading: -0.02em;
+  --tracking-wide: 0.12em;
+  --tracking-wider: 0.14em;
+  --tracking-widest: 0.16em;
+
+  /* ---------------------------------------------------------------------
+   * Space and layout
+   * ------------------------------------------------------------------ */
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.375rem;
+  --space-lg: 2.25rem;
+  --space-xl: clamp(2.75rem, 6vw, 5rem);
+
+  --container-max: 1440px;
+  --container-pad: clamp(1.25rem, 4vw, 4rem);
+  --section-pad: clamp(4rem, 9vw, 8rem);
+  --section-pad-sm: clamp(3rem, 6vw, 5rem);
+  --measure: 660px; /* readable line length for prose */
+  --measure-narrow: 560px;
+
+  --grid-gap: 1.125rem;
+
+  /* ---------------------------------------------------------------------
+   * Borders, shadows, motion
+   * ------------------------------------------------------------------ */
+  --radius-sm: 0.625rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.125rem;
+  --radius-pill: 999px;
+
+  --shadow-button: 0 10px 22px -12px rgb(226 100 58 / 80%), inset 0 1px 0 rgb(255 255 255 / 28%);
+  --shadow-button-hover:
+    0 22px 38px -14px rgb(226 100 58 / 85%), inset 0 1px 0 rgb(255 255 255 / 35%);
+  --shadow-button-dark: 0 10px 22px -12px rgb(20 22 26 / 70%);
+  --shadow-button-dark-hover: 0 22px 38px -16px rgb(20 22 26 / 60%);
+  --shadow-card-dark: 0 22px 44px -26px rgb(0 0 0 / 85%), inset 0 1px 0 rgb(255 255 255 / 9%);
+  --shadow-card-paper: 0 22px 44px -26px rgb(20 22 26 / 18%), inset 0 1px 0 rgb(255 255 255 / 90%);
+  --shadow-panel-dark: 0 30px 60px -30px rgb(0 0 0 / 90%), inset 0 1px 0 rgb(255 255 255 / 10%);
+  --shadow-panel-paper: 0 30px 60px -30px rgb(20 22 26 / 22%), inset 0 1px 0 rgb(255 255 255 / 90%);
+
+  --blur-glass: blur(16px);
+  --blur-header: blur(18px) saturate(140%);
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-settle: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 0.15s;
+  --duration-base: 0.28s;
+  --duration-slow: 0.55s;
+
+  /* Stacking order, declared once so layers stay predictable */
+  --z-backdrop: 0;
+  --z-content: 1;
+  --z-header: 20;
+  --z-cursor: 2147483647;
+}

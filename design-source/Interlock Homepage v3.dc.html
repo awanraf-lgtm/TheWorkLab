@@ -1,0 +1,2411 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@400;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          body {
+            margin: 0;
+            background: #0d0e10;
+            color: #9ba1aa;
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 15px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+          }
+          a {
+            color: #e9e6e1;
+          }
+          a:hover {
+            color: #e2643a;
+          }
+          :focus-visible {
+            outline: 2px solid #e2643a;
+            outline-offset: 3px;
+          }
+          @keyframes ilk-blink {
+            0%,
+            49% {
+              opacity: 1;
+            }
+            50%,
+            100% {
+              opacity: 0;
+            }
+          }
+          #ilk-cur,
+          #ilk-ring {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2147483647;
+            pointer-events: none;
+            border-radius: 999px;
+            will-change: transform;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+          }
+          #ilk-cur {
+            width: 7px;
+            height: 7px;
+            margin: -3.5px 0 0 -3.5px;
+            background: #e2643a;
+            box-shadow: 0 0 12px rgba(226, 100, 58, 0.9);
+          }
+          #ilk-ring {
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            border: 1px solid rgba(233, 230, 225, 0.5);
+            background: rgba(233, 230, 225, 0.04);
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+          }
+          #ilk-cur[data-live='1'],
+          #ilk-ring[data-live='1'] {
+            opacity: 1;
+          }
+          #ilk-ring[data-on='link'] {
+            border-color: rgba(226, 100, 58, 0.95);
+            background: rgba(226, 100, 58, 0.14);
+          }
+          #ilk-ring[data-on='card'] {
+            border-color: rgba(233, 230, 225, 0.28);
+            background: rgba(233, 230, 225, 0.07);
+          }
+          [data-tilt] {
+            transition:
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+          }
+          @media (hover: hover) and (pointer: fine) {
+            html[data-cursor='on'] body,
+            html[data-cursor='on'] a,
+            html[data-cursor='on'] button,
+            html[data-cursor='on'] label,
+            html[data-cursor='on'] [data-tilt],
+            html[data-cursor='on'] div,
+            html[data-cursor='on'] span,
+            html[data-cursor='on'] p,
+            html[data-cursor='on'] h1,
+            html[data-cursor='on'] h2,
+            html[data-cursor='on'] h3 {
+              cursor: none;
+            }
+            html[data-cursor='on'] #ilk-cur,
+            html[data-cursor='on'] #ilk-ring {
+              display: block;
+            }
+          }
+        </style>
+      </helmet>
+
+      <div style="background: #0d0e10; overflow-x: hidden; position: relative">
+        <div id="ilk-ring" aria-hidden="true" data-keep="cursor">
+          <span style="display: block; width: 100%; height: 100%; border-radius: 999px"></span>
+        </div>
+        <div id="ilk-cur" aria-hidden="true" data-keep="cursor">
+          <span style="display: block; width: 100%; height: 100%; border-radius: 999px"></span>
+        </div>
+        <div
+          aria-hidden="true"
+          style="
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+              radial-gradient(52vw 52vw at 78% 8%, rgba(226, 100, 58, 0.16), transparent 62%),
+              radial-gradient(46vw 46vw at 8% 62%, rgba(92, 152, 128, 0.11), transparent 65%),
+              radial-gradient(60vw 40vw at 50% 108%, rgba(226, 100, 58, 0.09), transparent 70%);
+          "
+        ></div>
+
+        <header
+          style="
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(13, 14, 16, 0.62);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          "
+        >
+          <div
+            style="
+              max-width: 1440px;
+              margin: 0 auto;
+              padding: 0 clamp(20px, 4vw, 64px);
+              display: flex;
+              align-items: center;
+              gap: clamp(16px, 3vw, 40px);
+              flex-wrap: wrap;
+              min-height: 76px;
+            "
+          >
+            <a
+              href="#top"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-family: 'Miriam Libre', sans-serif;
+                font-weight: 700;
+                font-size: 18px;
+                letter-spacing: 0.06em;
+                color: #f1eee9;
+                text-decoration: none;
+              "
+            >
+              <span style="position: relative; display: block; width: 24px; height: 24px; flex: none">
+                <i
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 62.5%;
+                    height: 62.5%;
+                    border: 1.5px solid #f1eee9;
+                    border-radius: 1px;
+                    display: block;
+                  "
+                ></i>
+                <i
+                  style="
+                    position: absolute;
+                    left: 37.5%;
+                    top: 37.5%;
+                    width: 62.5%;
+                    height: 62.5%;
+                    border: 1.5px solid #f1eee9;
+                    border-radius: 1px;
+                    display: block;
+                  "
+                ></i>
+                <i
+                  style="
+                    position: absolute;
+                    left: 37.5%;
+                    top: 37.5%;
+                    width: 25%;
+                    height: 25%;
+                    background: #e2643a;
+                    display: block;
+                  "
+                ></i> </span
+              >INTERLOCK</a
+            >
+            <span style="flex: 1"></span>
+            <a
+              href="#problem"
+              style="
+                font-size: 12px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: #9ba1aa;
+                text-decoration: none;
+              "
+              style-hover="color:#E2643A"
+              >PROBLEMS</a
+            >
+            <a
+              href="#method"
+              style="
+                font-size: 12px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: #9ba1aa;
+                text-decoration: none;
+                display: none;
+              "
+              style-hover="color:#E2643A"
+              >02 / Method</a
+            >
+            <a
+              href="#pricing"
+              style="
+                font-size: 12px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: #9ba1aa;
+                text-decoration: none;
+              "
+              style-hover="color:#E2643A"
+              >PRICING</a
+            >
+            <a
+              href="#book"
+              style="
+                background: #e2643a;
+                color: #0d0e10;
+                font-weight: 700;
+                font-size: 12px;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 13px 22px;
+                border-radius: 10px;
+                box-shadow:
+                  0 10px 22px -12px rgba(226, 100, 58, 0.8),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.28);
+                transition:
+                  transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+                  box-shadow 0.28s ease,
+                  background 0.15s ease;
+              "
+              style-hover="background:#F0794F;color:#0D0E10;transform:translateY(-4px) scale(1.025);box-shadow:0 22px 38px -14px rgba(226,100,58,0.85),inset 0 1px 0 rgba(255,255,255,0.35)"
+              >Book an audit</a
+            >
+          </div>
+        </header>
+
+        <section
+          id="top"
+          style="position: relative; z-index: 1; border-bottom: 1px solid rgba(255, 255, 255, 0.07)"
+          data-om-label="Hero Section"
+        >
+          <div
+            style="
+              max-width: 1440px;
+              margin: 0 auto;
+              padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 64px) 0;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(min(430px, 100%), 1fr));
+              gap: clamp(32px, 5vw, 56px);
+              align-items: center;
+            "
+          >
+            <div>
+              <h1
+                style="
+                  font-family: 'Miriam Libre', sans-serif;
+                  font-weight: 700;
+                  color: #f5f3ef;
+                  font-size: clamp(40px, 7.2vw, 80px);
+                  line-height: 0.94;
+                  letter-spacing: -0.035em;
+                  text-transform: uppercase;
+                  margin: clamp(20px, 3vw, 34px) 0 0;
+                "
+              >
+                <div>Automate the hidden work</div>
+                your systems<br /><span style="color: rgb(226, 100, 58)">Leave behind.</span>
+              </h1>
+              <div
+                style="
+                  margin: clamp(24px, 3vw, 34px) 0 0;
+                  font-size: 15.5px;
+                  line-height: 1.75;
+                  max-width: 560px;
+                  color: #9ba1aa;
+                "
+              >
+                <div>
+                  We uncover the exports, spreadsheets, re-keying, and routine decisions your core systems cannot handle
+                  - then automate the work consuming your team's time.
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 20px; margin-top: 36px; flex-wrap: wrap">
+                <a
+                  href="#book"
+                  style="
+                    background: #e2643a;
+                    color: #0d0e10;
+                    font-weight: 700;
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    padding: 18px 30px;
+                    border-radius: 10px;
+                    box-shadow:
+                      0 10px 22px -12px rgba(226, 100, 58, 0.8),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+                    transition:
+                      transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+                      box-shadow 0.28s ease,
+                      background 0.15s ease;
+                  "
+                  style-hover="background:#F0794F;color:#0D0E10;transform:translateY(-4px) scale(1.025);box-shadow:0 22px 38px -14px rgba(226,100,58,0.85),inset 0 1px 0 rgba(255,255,255,0.35)"
+                  >BOOK AN AUDIT</a
+                >
+                <a
+                  href="#method"
+                  style="
+                    border: 1px solid rgba(255, 255, 255, 0.16);
+                    background: rgba(255, 255, 255, 0.05);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    color: #f1eee9;
+                    font-weight: 500;
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    padding: 17px 28px;
+                    border-radius: 10px;
+                    transition:
+                      transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+                      box-shadow 0.28s ease,
+                      border-color 0.2s ease,
+                      background 0.2s ease;
+                  "
+                  style-hover="border-color:rgba(226,100,58,0.7);background:rgba(226,100,58,0.12);color:#F1EEE9;transform:translateY(-4px);box-shadow:0 20px 34px -18px rgba(0,0,0,0.9)"
+                  >LEARN OUR METHODS</a
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: clamp(20px, 3vw, 44px);
+                  flex-wrap: wrap;
+                  margin: clamp(40px, 5vw, 60px) 0 clamp(40px, 5vw, 72px);
+                  border-top: 1px solid #22252b;
+                  padding-top: 22px;
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-family: 'Miriam Libre', sans-serif;
+                      font-weight: 700;
+                      font-size: 30px;
+                      color: #f5f3ef;
+                      line-height: 1.1;
+                    "
+                  >
+                    2
+                  </div>
+                  <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6e747e">
+                    weeks, fixed fee
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-family: 'Miriam Libre', sans-serif;
+                      font-weight: 700;
+                      font-size: 30px;
+                      color: #f5f3ef;
+                      line-height: 1.1;
+                    "
+                  >
+                    1
+                  </div>
+                  <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6e747e">
+                    department
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-family: 'Miriam Libre', sans-serif;
+                      font-weight: 700;
+                      font-size: 30px;
+                      color: #f5f3ef;
+                      line-height: 1.1;
+                    "
+                  >
+                    ~40
+                  </div>
+                  <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6e747e">
+                    tasks scored per role
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="position: relative; min-height: clamp(320px, 44vw, 560px)">
+              <x-import
+                component-from-global-scope="interlock-3d"
+                from="./interlock3d.js"
+                accent="#E2643A"
+                shell="#1A1C20"
+                hint-size="100%,520px"
+                style="position: absolute; inset: 0"
+              ></x-import>
+            </div>
+          </div>
+        </section>
+
+        <section
+          style="
+            position: relative;
+            z-index: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(16, 18, 21, 0.5);
+          "
+        >
+          <div
+            style="
+              max-width: 1440px;
+              margin: 0 auto;
+              padding: clamp(48px, 6vw, 80px) clamp(20px, 4vw, 64px);
+              display: none;
+            "
+          >
+            <div
+              style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 24px"
+            >
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                >Task register / Claims operations</span
+              >
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6e747e"
+                >41 tasks &nbsp;·&nbsp; SME-validated &nbsp;·&nbsp; sample</span
+              >
+            </div>
+            <div
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                background: linear-gradient(165deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+                backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
+                box-shadow:
+                  0 30px 60px -30px rgba(0, 0, 0, 0.9),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 76px minmax(0, 1fr) 108px 62px;
+                  gap: 10px 16px;
+                  padding: 14px clamp(16px, 2.5vw, 26px);
+                  border-bottom: 1px solid #24272d;
+                  font-size: 10.5px;
+                  letter-spacing: 0.16em;
+                  text-transform: uppercase;
+                  color: #6e747e;
+                "
+              >
+                <span>ID</span><span>Task</span><span>Tier</span><span style="text-align: right">Score</span>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 76px minmax(0, 1fr) 108px 62px;
+                  gap: 6px 16px;
+                  padding: 18px clamp(16px, 2.5vw, 26px);
+                  border-bottom: 1px solid #1b1e23;
+                  align-items: center;
+                "
+                style-hover="background:#131519"
+              >
+                <span style="font-size: 12px; color: #6e747e">CLM-014</span>
+                <span style="color: #f1eee9; font-size: 14.5px">Re-key rebate data into CRM</span>
+                <span style="font-size: 11px; letter-spacing: 0.12em; font-weight: 700; color: #e2643a">AUTOMATE</span>
+                <span
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #e2643a;
+                    text-align: right;
+                  "
+                  >92</span
+                >
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 76px minmax(0, 1fr) 108px 62px;
+                  gap: 6px 16px;
+                  padding: 18px clamp(16px, 2.5vw, 26px);
+                  border-bottom: 1px solid #1b1e23;
+                  align-items: center;
+                "
+                style-hover="background:#131519"
+              >
+                <span style="font-size: 12px; color: #6e747e">CLM-006</span>
+                <span style="color: #f1eee9; font-size: 14.5px">Reconcile export against ledger</span>
+                <span style="font-size: 11px; letter-spacing: 0.12em; font-weight: 700; color: #e2643a">AUTOMATE</span>
+                <span
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #f1eee9;
+                    text-align: right;
+                  "
+                  >86</span
+                >
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 76px minmax(0, 1fr) 108px 62px;
+                  gap: 6px 16px;
+                  padding: 18px clamp(16px, 2.5vw, 26px);
+                  border-bottom: 1px solid #1b1e23;
+                  align-items: center;
+                "
+                style-hover="background:#131519"
+              >
+                <span style="font-size: 12px; color: #6e747e">CLM-022</span>
+                <span style="color: #f1eee9; font-size: 14.5px">Verify claimant eligibility</span>
+                <span style="font-size: 11px; letter-spacing: 0.12em; font-weight: 700; color: #5c9880">AUGMENT</span>
+                <span
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #f1eee9;
+                    text-align: right;
+                  "
+                  >78</span
+                >
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 76px minmax(0, 1fr) 108px 62px;
+                  gap: 6px 16px;
+                  padding: 18px clamp(16px, 2.5vw, 26px);
+                  border-bottom: 1px solid #1b1e23;
+                  align-items: center;
+                "
+                style-hover="background:#131519"
+              >
+                <span style="font-size: 12px; color: #6e747e">CLM-031</span>
+                <span style="color: #f1eee9; font-size: 14.5px">Draft monthly exception summary</span>
+                <span style="font-size: 11px; letter-spacing: 0.12em; font-weight: 700; color: #5c9880">AUGMENT</span>
+                <span
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #f1eee9;
+                    text-align: right;
+                  "
+                  >61</span
+                >
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 76px minmax(0, 1fr) 108px 62px;
+                  gap: 6px 16px;
+                  padding: 18px clamp(16px, 2.5vw, 26px);
+                  border-bottom: 1px solid #1b1e23;
+                  align-items: center;
+                "
+                style-hover="background:#131519"
+              >
+                <span style="font-size: 12px; color: #6e747e">CLM-009</span>
+                <span style="color: #f1eee9; font-size: 14.5px">Handle escalation calls</span>
+                <span style="font-size: 11px; letter-spacing: 0.12em; font-weight: 700; color: #767e8a">HUMAN-LED</span>
+                <span
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #6e747e;
+                    text-align: right;
+                  "
+                  >—</span
+                >
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 76px minmax(0, 1fr) 108px 62px;
+                  gap: 6px 16px;
+                  padding: 18px clamp(16px, 2.5vw, 26px);
+                  align-items: center;
+                "
+                style-hover="background:#131519"
+              >
+                <span style="font-size: 12px; color: #6e747e">CLM-047</span>
+                <span style="color: #f1eee9; font-size: 14.5px">Archive closed case files</span>
+                <span style="font-size: 11px; letter-spacing: 0.12em; font-weight: 700; color: #767e8a">LEAVE</span>
+                <span
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #6e747e;
+                    text-align: right;
+                  "
+                  >12</span
+                >
+              </div>
+              <div
+                style="
+                  border-top: 1px solid #24272d;
+                  padding: 14px clamp(16px, 2.5vw, 26px);
+                  font-size: 11px;
+                  letter-spacing: 0.14em;
+                  text-transform: uppercase;
+                  color: #6e747e;
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                "
+              >
+                Scored on effort × business impact<span
+                  style="
+                    width: 7px;
+                    height: 14px;
+                    background: #e2643a;
+                    display: inline-block;
+                    animation: ilk-blink 1.1s steps(1, end) infinite;
+                  "
+                ></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="problem"
+          style="background: #f5f3ef; color: #3a3f47; border-bottom: 1px solid #dedad4"
+          data-om-label="problem"
+        >
+          <div style="max-width: 1440px; margin: 0 auto; padding: clamp(64px, 9vw, 128px) clamp(20px, 4vw, 64px)">
+            <div data-rise="" style="max-width: 1000px">
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #b4522c"
+                >01 / The problem</span
+              >
+              <h2
+                style="
+                  font-family: 'Miriam Libre', sans-serif;
+                  font-weight: 700;
+                  color: #14161a;
+                  font-size: clamp(30px, 4.6vw, 64px);
+                  line-height: 1.02;
+                  letter-spacing: -0.03em;
+                  text-transform: uppercase;
+                  margin: 26px 0 26px;
+                  text-wrap: balance;
+                "
+              >
+                <span style="font-size: 62.238px">The feature your system never built</span>
+              </h2>
+              <div style="margin: 0; font-size: 16px; line-height: 1.75; max-width: 660px">
+                <div>
+                  Your core platform handles the standard workflow. Everything it cannot do survives as exports,
+                  spreadsheets, re-keying, and repetitive checks - simple, deterministic work that quietly grows into
+                  thousands of hours as volume increases.
+                </div>
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+                gap: 18px;
+                margin-top: clamp(44px, 6vw, 80px);
+              "
+            >
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 44px);
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 16px;
+                  box-shadow:
+                    0 22px 44px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 52px;
+                    line-height: 1;
+                    color: #e2643a;
+                  "
+                >
+                  01
+                </div>
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #14161a;
+                    letter-spacing: -0.01em;
+                    margin: 20px 0 12px;
+                  "
+                >
+                  The export
+                </h3>
+                <div style="margin: 0; font-size: 14.5px; line-height: 1.7">
+                  <div>
+                    Someone downloads a CSV every Tuesday because the system's report is not the report the team
+                  </div>
+                  <div>actually needs.</div>
+                </div>
+              </div>
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 44px);
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 16px;
+                  box-shadow:
+                    0 22px 44px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 52px;
+                    line-height: 1;
+                    color: #e2643a;
+                  "
+                >
+                  02
+                </div>
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #14161a;
+                    letter-spacing: -0.01em;
+                    margin: 20px 0 12px;
+                  "
+                >
+                  The side calculation
+                </h3>
+                <div style="margin: 0; font-size: 14.5px; line-height: 1.7">
+                  <div>
+                    One person maintains a spreadsheet of formulas and adjustments that drives decisions the core
+                  </div>
+                  <div>system cannot make - or even see.</div>
+                </div>
+              </div>
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 44px);
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 16px;
+                  box-shadow:
+                    0 22px 44px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 52px;
+                    line-height: 1;
+                    color: #e2643a;
+                  "
+                >
+                  03
+                </div>
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #14161a;
+                    letter-spacing: -0.01em;
+                    margin: 20px 0 12px;
+                  "
+                >
+                  The re-key
+                </h3>
+                <div style="margin: 0; font-size: 14.5px; line-height: 1.7">
+                  <div>
+                    The final result is manually entered into another system because the two platforms were never
+                  </div>
+                  <div>built to work together.</div>
+                </div>
+              </div>
+            </div>
+            <p
+              data-rise=""
+              style="
+                font-family: 'Miriam Libre', sans-serif;
+                font-weight: 700;
+                font-size: clamp(20px, 2.6vw, 32px);
+                line-height: 1.25;
+                letter-spacing: -0.02em;
+                color: #14161a;
+                max-width: 900px;
+                margin: clamp(44px, 6vw, 80px) 0 0;
+                text-wrap: pretty;
+              "
+            >
+              An AI tool bought against the documented 70% automates work that was already working.
+            </p>
+          </div>
+        </section>
+
+        <section id="method" style="border-bottom: 1px solid #22252b" data-om-label="The Method">
+          <div style="max-width: 1440px; margin: 0 auto; padding: clamp(64px, 9vw, 128px) clamp(20px, 4vw, 64px)">
+            <div data-rise="" style="max-width: 1000px">
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                >02 / The method</span
+              >
+              <h2
+                style="
+                  font-family: 'Miriam Libre', sans-serif;
+                  font-weight: 700;
+                  color: #f5f3ef;
+                  font-size: clamp(30px, 4.6vw, 64px);
+                  line-height: 1.02;
+                  letter-spacing: -0.03em;
+                  text-transform: uppercase;
+                  margin: 26px 0 26px;
+                  text-wrap: balance;
+                "
+              >
+                <span style="font-size: 62.238px">The judgment your system cannot make</span>
+              </h2>
+              <div style="margin: 0; font-size: 16px; line-height: 1.75; max-width: 660px">
+                <div>
+                  Some work cannot be reduced to fixed rules: reprioritizing requests, reassigning work, and choosing
+                  the next best action as conditions change. These decisions require context and adaptation, but not
+                  deep expertise - so people keep making the same low-level judgment calls by hand.
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+                gap: 18px;
+                margin-top: clamp(44px, 6vw, 80px);
+              "
+            >
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 44px);
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 16px;
+                  box-shadow:
+                    0 22px 44px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 52px;
+                    line-height: 1;
+                    color: #e2643a;
+                  "
+                >
+                  01
+                </div>
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #14161a;
+                    letter-spacing: -0.01em;
+                    margin: 20px 0 12px;
+                  "
+                >
+                  The daily reprioritization
+                </h3>
+                <div style="margin: 0; font-size: 14.5px; line-height: 1.7">
+                  <div>
+                    <div style="color: #0d0e10">
+                      Every new request forces someone to reshuffle the backlog by urgency, capacity, and customer
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 44px);
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 16px;
+                  box-shadow:
+                    0 22px 44px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 52px;
+                    line-height: 1;
+                    color: #e2643a;
+                  "
+                >
+                  02
+                </div>
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #14161a;
+                    letter-spacing: -0.01em;
+                    margin: 20px 0 12px;
+                  "
+                >
+                  The manual reassignment
+                </h3>
+                <div style="margin: 0; font-size: 14.5px; line-height: 1.7">
+                  <div style="color: #0d0e10">
+                    When availability or priorities change, someone has to decide who should take what next.
+                  </div>
+                </div>
+              </div>
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 44px);
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 16px;
+                  box-shadow:
+                    0 22px 44px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 52px;
+                    line-height: 1;
+                    color: #e2643a;
+                  "
+                >
+                  03
+                </div>
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #14161a;
+                    letter-spacing: -0.01em;
+                    margin: 20px 0 12px;
+                  "
+                >
+                  The next-best-action decision
+                </h3>
+                <div style="margin: 0; font-size: 14.5px; line-height: 1.7">
+                  <div style="color: #0d0e10">
+                    <div>
+                      A person repeatedly weighs customer history, current conditions, and business priorities to choose
+                    </div>
+                    <div>what happens next.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: clamp(44px, 6vw, 80px); border-top: 1px solid #24272d">
+              <div
+                data-rise=""
+                style="
+                  display: none;
+                  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+                  gap: 14px clamp(24px, 4vw, 56px);
+                  padding: clamp(28px, 3.5vw, 44px) 0;
+                  border-bottom: 1px solid #24272d;
+                "
+              >
+                <div>
+                  <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                    >Stage 01 · Day 1–2</span
+                  >
+                  <h3
+                    style="
+                      font-family: 'Miriam Libre', sans-serif;
+                      font-weight: 700;
+                      font-size: clamp(26px, 3vw, 38px);
+                      color: #f5f3ef;
+                      letter-spacing: -0.025em;
+                      text-transform: uppercase;
+                      margin: 14px 0 0;
+                    "
+                  >
+                    Observe
+                  </h3>
+                </div>
+                <div>
+                  <p style="margin: 0; font-size: 15px; line-height: 1.75">
+                    Two days sitting beside the team while they work. Not interviews — an interview returns the job
+                    description, and the job description is the part we already know.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 10px;
+                      margin-top: 18px;
+                      border-top: 1px solid #24272d;
+                      padding-top: 14px;
+                    "
+                  >
+                    <span style="width: 7px; height: 7px; background: #e2643a; flex: none; display: block"></span>
+                    <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a9099"
+                      >Gate — your SME confirms what we saw</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                data-rise=""
+                style="
+                  display: none;
+                  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+                  gap: 14px clamp(24px, 4vw, 56px);
+                  padding: clamp(28px, 3.5vw, 44px) 0;
+                  border-bottom: 1px solid #24272d;
+                "
+              >
+                <div>
+                  <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                    >Stage 02 · Day 4–6</span
+                  >
+                  <h3
+                    style="
+                      font-family: 'Miriam Libre', sans-serif;
+                      font-weight: 700;
+                      font-size: clamp(26px, 3vw, 38px);
+                      color: #f5f3ef;
+                      letter-spacing: -0.025em;
+                      text-transform: uppercase;
+                      margin: 14px 0 0;
+                    "
+                  >
+                    Decompose
+                  </h3>
+                </div>
+                <div>
+                  <p style="margin: 0; font-size: 15px; line-height: 1.75">
+                    Every role broken into the discrete tasks it actually performs — seeded from a standard occupation
+                    library, then corrected against what we watched. The library is scaffolding, not the answer; the gap
+                    between it and reality is the finding.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 10px;
+                      margin-top: 18px;
+                      border-top: 1px solid #24272d;
+                      padding-top: 14px;
+                    "
+                  >
+                    <span style="width: 7px; height: 7px; background: #e2643a; flex: none; display: block"></span>
+                    <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a9099"
+                      >Gate — your SME validates the task list</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                data-rise=""
+                style="
+                  display: none;
+                  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+                  gap: 14px clamp(24px, 4vw, 56px);
+                  padding: clamp(28px, 3.5vw, 44px) 0;
+                  border-bottom: 1px solid #24272d;
+                "
+              >
+                <div>
+                  <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                    >Stage 03 · Day 6–7</span
+                  >
+                  <h3
+                    style="
+                      font-family: 'Miriam Libre', sans-serif;
+                      font-weight: 700;
+                      font-size: clamp(26px, 3vw, 38px);
+                      color: #f5f3ef;
+                      letter-spacing: -0.025em;
+                      text-transform: uppercase;
+                      margin: 14px 0 0;
+                    "
+                  >
+                    Classify
+                  </h3>
+                </div>
+                <div>
+                  <p style="margin: 0; font-size: 15px; line-height: 1.75">
+                    Each task sorted into Automate, Augment, Human-led or Leave — with the reasoning attached to every
+                    call, so you can disagree with a specific one rather than the whole report.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 10px;
+                      margin-top: 18px;
+                      border-top: 1px solid #24272d;
+                      padding-top: 14px;
+                    "
+                  >
+                    <span style="width: 7px; height: 7px; background: #e2643a; flex: none; display: block"></span>
+                    <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a9099"
+                      >Gate — your SME validates the classifications</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                data-rise=""
+                style="
+                  display: none;
+                  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+                  gap: 14px clamp(24px, 4vw, 56px);
+                  padding: clamp(28px, 3.5vw, 44px) 0;
+                  border-bottom: 1px solid #24272d;
+                "
+              >
+                <div>
+                  <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                    >Stage 04 · Day 7–10</span
+                  >
+                  <h3
+                    style="
+                      font-family: 'Miriam Libre', sans-serif;
+                      font-weight: 700;
+                      font-size: clamp(26px, 3vw, 38px);
+                      color: #f5f3ef;
+                      letter-spacing: -0.025em;
+                      text-transform: uppercase;
+                      margin: 14px 0 0;
+                    "
+                  >
+                    Score
+                  </h3>
+                </div>
+                <div>
+                  <p style="margin: 0; font-size: 15px; line-height: 1.75">
+                    Effort weighed against business impact and computed in code, not by a model. Identical inputs give
+                    an identical score every time, and we show the working — because this is the number you will argue
+                    with.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 10px;
+                      margin-top: 18px;
+                      border-top: 1px solid #24272d;
+                      padding-top: 14px;
+                    "
+                  >
+                    <span style="width: 7px; height: 7px; background: #e2643a; flex: none; display: block"></span>
+                    <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a9099"
+                      >Ranked register delivered</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p style="margin: 32px 0 0; display: none">
+              <a
+                href="Interlock Method.dc.html"
+                style="
+                  font-size: 12px;
+                  letter-spacing: 0.14em;
+                  text-transform: uppercase;
+                  color: #f1eee9;
+                  text-decoration: none;
+                  border-bottom: 1px solid #33373e;
+                "
+                style-hover="border-bottom-color:#E2643A;color:#F1EEE9"
+                >Read the method in full →</a
+              >
+            </p>
+          </div>
+        </section>
+
+        <section
+          id="deliverables"
+          style="
+            position: relative;
+            z-index: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(16, 18, 21, 0.5);
+          "
+        >
+          <div
+            style="
+              max-width: 1440px;
+              margin: 0 auto;
+              padding: clamp(64px, 9vw, 128px) clamp(20px, 4vw, 64px);
+              display: none;
+            "
+          >
+            <div data-rise="" style="max-width: 1000px">
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                >03 / What you get</span
+              >
+              <h2
+                style="
+                  font-family: 'Miriam Libre', sans-serif;
+                  font-weight: 700;
+                  color: #f5f3ef;
+                  font-size: clamp(30px, 4.6vw, 64px);
+                  line-height: 1.02;
+                  letter-spacing: -0.03em;
+                  text-transform: uppercase;
+                  margin: 26px 0 26px;
+                  text-wrap: balance;
+                "
+              >
+                Four documents.<br />One will annoy you.
+              </h2>
+              <p style="margin: 0; font-size: 16px; line-height: 1.75; max-width: 660px">
+                That is the point. Everything is written to be handed to a finance director or an engineer without
+                translation. No maturity curves, no readiness scores, no quadrants.
+              </p>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+                gap: 18px;
+                margin-top: clamp(44px, 6vw, 80px);
+              "
+            >
+              <div
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 48px);
+                  border: 1px solid rgba(255, 255, 255, 0.09);
+                  border-radius: 16px;
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+                  backdrop-filter: blur(16px);
+                  -webkit-backdrop-filter: blur(16px);
+                  box-shadow:
+                    0 22px 44px -26px rgba(0, 0, 0, 0.85),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+                "
+              >
+                <span
+                  style="
+                    display: block;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    text-transform: uppercase;
+                    color: #6e747e;
+                    margin-bottom: 22px;
+                  "
+                  >Deliverable 01</span
+                >
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: clamp(22px, 2.4vw, 28px);
+                    color: #f5f3ef;
+                    letter-spacing: -0.02em;
+                    margin: 0 0 14px;
+                  "
+                >
+                  The task register
+                </h3>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.75">
+                  Every task in the department, classified and scored, with the reasoning attached to each call. Roughly
+                  40 rows per role. This is the artifact everything else is derived from.
+                </p>
+              </div>
+              <div
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 48px);
+                  border: 1px solid rgba(255, 255, 255, 0.09);
+                  border-radius: 16px;
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+                  backdrop-filter: blur(16px);
+                  -webkit-backdrop-filter: blur(16px);
+                  box-shadow:
+                    0 22px 44px -26px rgba(0, 0, 0, 0.85),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+                "
+              >
+                <span
+                  style="
+                    display: block;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    text-transform: uppercase;
+                    color: #6e747e;
+                    margin-bottom: 22px;
+                  "
+                  >Deliverable 02</span
+                >
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: clamp(22px, 2.4vw, 28px);
+                    color: #f5f3ef;
+                    letter-spacing: -0.02em;
+                    margin: 0 0 14px;
+                  "
+                >
+                  The handoff map
+                </h3>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.75">
+                  Every point where data crosses between two systems by human hand, what it costs you in hours per
+                  month, and which crossings can be closed without replacing either system.
+                </p>
+              </div>
+              <div
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 48px);
+                  border: 1px solid rgba(255, 255, 255, 0.09);
+                  border-radius: 16px;
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+                  backdrop-filter: blur(16px);
+                  -webkit-backdrop-filter: blur(16px);
+                  box-shadow:
+                    0 22px 44px -26px rgba(0, 0, 0, 0.85),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+                "
+              >
+                <span
+                  style="
+                    display: block;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    text-transform: uppercase;
+                    color: #6e747e;
+                    margin-bottom: 22px;
+                  "
+                  >Deliverable 03</span
+                >
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: clamp(22px, 2.4vw, 28px);
+                    color: #f5f3ef;
+                    letter-spacing: -0.02em;
+                    margin: 0 0 14px;
+                  "
+                >
+                  The costed plan
+                </h3>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.75">
+                  The ten highest-scoring opportunities, each with a build estimate, a payback figure, a named owner and
+                  a sequence. Written so you can take it straight into a budget conversation.
+                </p>
+              </div>
+              <div
+                data-tilt=""
+                style="
+                  padding: clamp(28px, 3.5vw, 48px);
+                  border: 1px solid rgba(226, 100, 58, 0.35);
+                  border-radius: 16px;
+                  background: linear-gradient(160deg, rgba(226, 100, 58, 0.12), rgba(255, 255, 255, 0.02));
+                  backdrop-filter: blur(16px);
+                  -webkit-backdrop-filter: blur(16px);
+                  box-shadow:
+                    0 26px 50px -26px rgba(0, 0, 0, 0.85),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+                "
+              >
+                <span
+                  style="
+                    display: block;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    text-transform: uppercase;
+                    color: #e2643a;
+                    margin-bottom: 22px;
+                  "
+                  >Deliverable 04</span
+                >
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: clamp(22px, 2.4vw, 28px);
+                    color: #f5f3ef;
+                    letter-spacing: -0.02em;
+                    margin: 0 0 14px;
+                  "
+                >
+                  What not to automate
+                </h3>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.75">
+                  The work that looks automatable and isn't, and why. Usually the shortest document and always the most
+                  argued-over. It is also the one that stops you spending six figures on a pilot that was never going to
+                  hold.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="fit" style="background: #f5f3ef; color: #3a3f47; border-bottom: 1px solid #dedad4">
+          <div
+            style="
+              max-width: 1440px;
+              margin: 0 auto;
+              padding: clamp(64px, 9vw, 128px) clamp(20px, 4vw, 64px);
+              display: none;
+            "
+          >
+            <div data-rise="" style="max-width: 1000px">
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #b4522c"
+                >04 / Fit</span
+              >
+              <h2
+                style="
+                  font-family: 'Miriam Libre', sans-serif;
+                  font-weight: 700;
+                  color: #14161a;
+                  font-size: clamp(30px, 4.6vw, 64px);
+                  line-height: 1.02;
+                  letter-spacing: -0.03em;
+                  text-transform: uppercase;
+                  margin: 26px 0 0;
+                  text-wrap: balance;
+                "
+              >
+                This wastes money<br />in some departments.
+              </h2>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+                gap: clamp(36px, 5vw, 72px);
+                margin-top: clamp(44px, 6vw, 72px);
+              "
+            >
+              <div data-rise="">
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #14161a;
+                    letter-spacing: 0.02em;
+                    text-transform: uppercase;
+                    margin: 0 0 4px;
+                  "
+                >
+                  Worth booking if
+                </h3>
+                <ul style="list-style: none; margin: 20px 0 0; padding: 0">
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #e2643a; font-weight: 700">+</span
+                    ><span>You run 20–400 people and one department has a budget owner who can approve a change.</span>
+                  </li>
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #e2643a; font-weight: 700">+</span
+                    ><span
+                      >The work is operational and repeatable — claims, billing, onboarding, procurement, support.</span
+                    >
+                  </li>
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #e2643a; font-weight: 700">+</span
+                    ><span
+                      >You already have a system of record, and people have quietly built habits around its gaps.</span
+                    >
+                  </li>
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      border-bottom: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #e2643a; font-weight: 700">+</span
+                    ><span>Someone internal can give us two days of their team's actual working time.</span>
+                  </li>
+                </ul>
+              </div>
+              <div data-rise="">
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: #14161a;
+                    letter-spacing: 0.02em;
+                    text-transform: uppercase;
+                    margin: 0 0 4px;
+                  "
+                >
+                  Don't book if
+                </h3>
+                <ul style="list-style: none; margin: 20px 0 0; padding: 0">
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #767e8a; font-weight: 700">−</span
+                    ><span>You want a strategy deck to show the board. We produce a task list and a bill of work.</span>
+                  </li>
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #767e8a; font-weight: 700">−</span
+                    ><span>Nobody in the room can authorise a change to how the team works.</span>
+                  </li>
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #767e8a; font-weight: 700">−</span
+                    ><span
+                      >The goal is a headcount number to justify a decision already taken. We won't take the
+                      engagement.</span
+                    >
+                  </li>
+                  <li
+                    style="
+                      display: grid;
+                      grid-template-columns: 26px minmax(0, 1fr);
+                      gap: 12px;
+                      padding: 16px 0;
+                      border-top: 1px solid #dedad4;
+                      border-bottom: 1px solid #dedad4;
+                      font-size: 14.5px;
+                      line-height: 1.7;
+                    "
+                  >
+                    <span style="color: #767e8a; font-weight: 700">−</span
+                    ><span
+                      >You need the answer this week. Two days of observation is the part that can't be
+                      compressed.</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" style="background: #efede8; color: #3a3f47; border-bottom: 1px solid #dedad4">
+          <div style="max-width: 1440px; margin: 0 auto; padding: clamp(64px, 9vw, 128px) clamp(20px, 4vw, 64px)">
+            <div data-rise="" style="max-width: 1000px">
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #b4522c"
+                >03 / PRICING</span
+              >
+              <h2
+                style="
+                  font-family: 'Miriam Libre', sans-serif;
+                  font-weight: 700;
+                  color: #14161a;
+                  font-size: clamp(30px, 4.6vw, 64px);
+                  line-height: 1.02;
+                  letter-spacing: -0.03em;
+                  text-transform: uppercase;
+                  margin: 26px 0 26px;
+                "
+              >
+                Fixed fee, agreed<br />before we start.
+              </h2>
+              <p style="margin: 0; font-size: 16px; line-height: 1.75; max-width: 620px">
+                Scoped on one 30-minute call. No day rates, no change orders, and no engagement that quietly extends
+                itself.
+              </p>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+                gap: 20px;
+                margin-top: clamp(44px, 6vw, 72px);
+              "
+            >
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 18px;
+                  padding: clamp(26px, 3vw, 36px);
+                  display: flex;
+                  flex-direction: column;
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.42));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  box-shadow:
+                    0 24px 46px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #767e8a"
+                  >Tier 01</span
+                >
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: #14161a;
+                    letter-spacing: -0.02em;
+                    margin: 16px 0 0;
+                  "
+                >
+                  Department audit
+                </h3>
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 34px;
+                    color: #14161a;
+                    letter-spacing: -0.02em;
+                    margin: 22px 0 4px;
+                  "
+                >
+                  [$X,XXX]
+                </div>
+                <p
+                  style="
+                    margin: 0 0 22px;
+                    font-size: 12px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: #767e8a;
+                  "
+                >
+                  Two weeks · one department
+                </p>
+                <ul style="list-style: none; margin: 0 0 28px; padding: 0; flex: 1">
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Two days of on-site observation
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Task register, classified and scored
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Handoff map
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Costed plan, top ten opportunities
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Ninety-minute readout with your team
+                  </li>
+                </ul>
+                <a
+                  href="#book"
+                  style="
+                    background: #14161a;
+                    color: #f5f3ef;
+                    font-weight: 700;
+                    font-size: 12px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    padding: 15px 22px;
+                    border-radius: 10px;
+                    text-align: center;
+                    box-shadow: 0 10px 22px -12px rgba(20, 22, 26, 0.7);
+                    transition:
+                      transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+                      box-shadow 0.28s ease,
+                      background 0.15s ease;
+                  "
+                  style-hover="background:#3A3F47;color:#F5F3EF;transform:translateY(-4px) scale(1.02);box-shadow:0 22px 38px -16px rgba(20,22,26,0.6)"
+                  >Book this</a
+                >
+              </div>
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  border: 1px solid rgba(255, 255, 255, 0.14);
+                  border-radius: 18px;
+                  padding: clamp(26px, 3vw, 36px);
+                  display: flex;
+                  flex-direction: column;
+                  background: linear-gradient(160deg, rgba(28, 30, 35, 0.92), rgba(13, 14, 16, 0.88));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  box-shadow:
+                    0 30px 60px -26px rgba(20, 22, 26, 0.5),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+                  color: #9ba1aa;
+                "
+              >
+                <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                  >Tier 02 · Most booked</span
+                >
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: #f5f3ef;
+                    letter-spacing: -0.02em;
+                    margin: 16px 0 0;
+                  "
+                >
+                  Audit + roadmap
+                </h3>
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 34px;
+                    color: #e2643a;
+                    letter-spacing: -0.02em;
+                    margin: 22px 0 4px;
+                  "
+                >
+                  [$XX,XXX]
+                </div>
+                <p
+                  style="
+                    margin: 0 0 22px;
+                    font-size: 12px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: #6e747e;
+                  "
+                >
+                  Four weeks · up to three departments
+                </p>
+                <ul style="list-style: none; margin: 0 0 28px; padding: 0; flex: 1">
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #24272d; line-height: 1.6">
+                    Everything in the department audit
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #24272d; line-height: 1.6">
+                    Cross-department handoff analysis
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #24272d; line-height: 1.6">
+                    Build-versus-buy call on each opportunity
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #24272d; line-height: 1.6">
+                    Ninety-day sequenced plan with owners
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #24272d; line-height: 1.6">
+                    Two follow-up sessions at 30 and 60 days
+                  </li>
+                </ul>
+                <a
+                  href="#book"
+                  style="
+                    background: #e2643a;
+                    color: #0d0e10;
+                    font-weight: 700;
+                    font-size: 12px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    padding: 15px 22px;
+                    border-radius: 2px;
+                    text-align: center;
+                    transition: background 0.15s ease;
+                  "
+                  style-hover="background:#F0794F;color:#0D0E10"
+                  >Book this</a
+                >
+              </div>
+              <div
+                data-rise=""
+                data-tilt=""
+                style="
+                  border: 1px solid rgba(255, 255, 255, 0.9);
+                  border-radius: 18px;
+                  padding: clamp(26px, 3vw, 36px);
+                  display: flex;
+                  flex-direction: column;
+                  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.42));
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  box-shadow:
+                    0 24px 46px -26px rgba(20, 22, 26, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                "
+              >
+                <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #767e8a"
+                  >Tier 03</span
+                >
+                <h3
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: #14161a;
+                    letter-spacing: -0.02em;
+                    margin: 16px 0 0;
+                  "
+                >
+                  Build
+                </h3>
+                <div
+                  style="
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 22px;
+                    color: #14161a;
+                    letter-spacing: -0.01em;
+                    margin: 26px 0 6px;
+                  "
+                >
+                  Quoted per opportunity
+                </div>
+                <p
+                  style="
+                    margin: 0 0 22px;
+                    font-size: 12px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: #767e8a;
+                  "
+                >
+                  From the register · fixed scope
+                </p>
+                <ul style="list-style: none; margin: 0 0 28px; padding: 0; flex: 1">
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    We implement what we ranked
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Scope drawn from the audit, not a fresh discovery
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Handover documentation and internal training
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Audit fee credited against the first build
+                  </li>
+                  <li style="font-size: 14px; padding: 12px 0; border-top: 1px solid #dcd8d2; line-height: 1.6">
+                    Available to audit clients only
+                  </li>
+                </ul>
+                <a
+                  href="#book"
+                  style="
+                    background: #14161a;
+                    color: #f5f3ef;
+                    font-weight: 700;
+                    font-size: 12px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    padding: 15px 22px;
+                    border-radius: 10px;
+                    text-align: center;
+                    box-shadow: 0 10px 22px -12px rgba(20, 22, 26, 0.7);
+                    transition:
+                      transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+                      box-shadow 0.28s ease,
+                      background 0.15s ease;
+                  "
+                  style-hover="background:#3A3F47;color:#F5F3EF;transform:translateY(-4px) scale(1.02);box-shadow:0 22px 38px -16px rgba(20,22,26,0.6)"
+                  >Talk to us</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="book" style="border-bottom: 1px solid #22252b; position: relative; overflow: hidden">
+          <div
+            style="
+              max-width: 1440px;
+              margin: 0 auto;
+              padding: clamp(64px, 9vw, 128px) clamp(20px, 4vw, 64px);
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+              gap: clamp(32px, 5vw, 64px);
+              align-items: center;
+            "
+          >
+            <div>
+              <span style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #e2643a"
+                >04 / START HERE</span
+              >
+              <h2
+                style="
+                  font-family: 'Miriam Libre', sans-serif;
+                  font-weight: 700;
+                  color: #f5f3ef;
+                  font-size: clamp(30px, 4.6vw, 62px);
+                  line-height: 1.02;
+                  letter-spacing: -0.03em;
+                  text-transform: uppercase;
+                  margin: 26px 0 26px;
+                  text-wrap: balance;
+                "
+              >
+                Start with one department.
+              </h2>
+              <p style="margin: 0; font-size: 16px; line-height: 1.75; max-width: 560px">
+                Thirty minutes on a call is enough to tell you whether your department is a fit, and we will say so if
+                it isn't. If it is, you get a fixed price and a start date on the same call.
+              </p>
+              <div style="display: flex; gap: 18px; margin-top: 36px; flex-wrap: wrap; align-items: center">
+                <a
+                  href="mailto:hello@interlock.example"
+                  style="
+                    background: #e2643a;
+                    color: #0d0e10;
+                    font-weight: 700;
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    padding: 18px 30px;
+                    border-radius: 10px;
+                    box-shadow:
+                      0 10px 22px -12px rgba(226, 100, 58, 0.8),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+                    transition:
+                      transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+                      box-shadow 0.28s ease,
+                      background 0.15s ease;
+                  "
+                  style-hover="background:#F0794F;color:#0D0E10;transform:translateY(-4px) scale(1.025);box-shadow:0 22px 38px -14px rgba(226,100,58,0.85),inset 0 1px 0 rgba(255,255,255,0.35)"
+                  >Book a scoping call</a
+                >
+                <a
+                  href="#method"
+                  style="
+                    border: 1px solid rgba(255, 255, 255, 0.16);
+                    background: rgba(255, 255, 255, 0.05);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    color: #f1eee9;
+                    font-weight: 500;
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    padding: 17px 28px;
+                    border-radius: 10px;
+                    transition:
+                      transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+                      box-shadow 0.28s ease,
+                      border-color 0.2s ease,
+                      background 0.2s ease;
+                    display: none;
+                  "
+                  style-hover="border-color:rgba(226,100,58,0.7);background:rgba(226,100,58,0.12);color:#F1EEE9;transform:translateY(-4px);box-shadow:0 20px 34px -18px rgba(0,0,0,0.9)"
+                  >Read the method first</a
+                >
+              </div>
+            </div>
+            <div
+              data-tilt=""
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                box-shadow:
+                  0 24px 50px -26px rgba(0, 0, 0, 0.85),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                padding: clamp(22px, 3vw, 30px);
+              "
+            >
+              <div
+                style="
+                  font-size: 11px;
+                  letter-spacing: 0.16em;
+                  text-transform: uppercase;
+                  color: #6e747e;
+                  padding-bottom: 16px;
+                  border-bottom: 1px solid #24272d;
+                "
+              >
+                Scoping call / agenda
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 56px minmax(0, 1fr);
+                  gap: 8px 16px;
+                  padding: 14px 0;
+                  border-bottom: 1px solid #1b1e23;
+                "
+              >
+                <span style="font-size: 12px; color: #e2643a">00:00</span
+                ><span style="font-size: 14px; color: #f1eee9">Which department, and who owns the budget</span>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 56px minmax(0, 1fr);
+                  gap: 8px 16px;
+                  padding: 14px 0;
+                  border-bottom: 1px solid #1b1e23;
+                "
+              >
+                <span style="font-size: 12px; color: #e2643a">00:08</span
+                ><span style="font-size: 14px; color: #f1eee9"
+                  >What the system of record is, and where people work around it</span
+                >
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 56px minmax(0, 1fr);
+                  gap: 8px 16px;
+                  padding: 14px 0;
+                  border-bottom: 1px solid #1b1e23;
+                "
+              >
+                <span style="font-size: 12px; color: #e2643a">00:18</span
+                ><span style="font-size: 14px; color: #f1eee9"
+                  >Whether two days of observation is possible, and when</span
+                >
+              </div>
+              <div style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px 16px; padding: 14px 0">
+                <span style="font-size: 12px; color: #e2643a">00:26</span
+                ><span style="font-size: 14px; color: #f1eee9">Fixed price, start date, or a straight no</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer style="background: #0d0e10">
+          <div style="max-width: 1440px; margin: 0 auto; padding: clamp(40px, 5vw, 64px) clamp(20px, 4vw, 64px)">
+            <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start">
+              <div>
+                <a
+                  href="#top"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    font-family: 'Miriam Libre', sans-serif;
+                    font-weight: 700;
+                    font-size: 18px;
+                    letter-spacing: 0.06em;
+                    color: #f1eee9;
+                    text-decoration: none;
+                    margin-bottom: 14px;
+                  "
+                >
+                  <span style="position: relative; display: block; width: 24px; height: 24px; flex: none">
+                    <i
+                      style="
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 62.5%;
+                        height: 62.5%;
+                        border: 1.5px solid #f1eee9;
+                        border-radius: 1px;
+                        display: block;
+                      "
+                    ></i>
+                    <i
+                      style="
+                        position: absolute;
+                        left: 37.5%;
+                        top: 37.5%;
+                        width: 62.5%;
+                        height: 62.5%;
+                        border: 1.5px solid #f1eee9;
+                        border-radius: 1px;
+                        display: block;
+                      "
+                    ></i>
+                    <i
+                      style="
+                        position: absolute;
+                        left: 37.5%;
+                        top: 37.5%;
+                        width: 25%;
+                        height: 25%;
+                        background: #e2643a;
+                        display: block;
+                      "
+                    ></i> </span
+                  >INTERLOCK</a
+                >
+                <p
+                  style="margin: 0; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6e747e"
+                >
+                  AI automation audit · consultancy · development
+                </p>
+              </div>
+              <span style="flex: 1"></span>
+              <div style="display: flex; gap: 32px; flex-wrap: wrap">
+                <a
+                  href="#method"
+                  style="
+                    font-size: 12px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: #9ba1aa;
+                    text-decoration: none;
+                  "
+                  >Method</a
+                >
+                <a
+                  href="#deliverables"
+                  style="
+                    font-size: 12px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: #9ba1aa;
+                    text-decoration: none;
+                  "
+                  >Deliverables</a
+                >
+                <a
+                  href="#pricing"
+                  style="
+                    font-size: 12px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: #9ba1aa;
+                    text-decoration: none;
+                  "
+                  >Pricing</a
+                >
+                <a
+                  href="Interlock Mark.dc.html"
+                  style="
+                    font-size: 12px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: #9ba1aa;
+                    text-decoration: none;
+                  "
+                  >Mark</a
+                >
+              </div>
+            </div>
+            <p
+              style="
+                margin: 40px 0 0;
+                font-size: 11px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: #4e545d;
+              "
+            >
+              © 2026 Interlock · [Company registration] · [Registered address]
+            </p>
+          </div>
+        </footer>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{"reveal":{"editor":"boolean","default":true,"tsType":"boolean","section":"Motion"},"customCursor":{"editor":"boolean","default":true,"tsType":"boolean","section":"Motion"},"tilt":{"editor":"boolean","default":true,"tsType":"boolean","section":"Motion"},"tiltStrength":{"editor":"range","default":7,"min":0,"max":14,"step":1,"unit":"deg","tsType":"number","section":"Motion"}}'
+    >
+      class Component extends DCLogic {
+        componentDidMount() {
+          this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          this.fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+          this.initCursor();
+          this.initTilt();
+          if (this.props.reveal === false) return;
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          if (!('IntersectionObserver' in window)) return;
+          const els = Array.from(document.querySelectorAll('[data-rise]'));
+          els.forEach(e => {
+            e.style.opacity = '0';
+            e.style.transform = 'translateY(16px)';
+            e.style.transition = 'opacity .55s ease, transform .55s ease';
+          });
+          const io = new IntersectionObserver(entries => {
+            entries.forEach(en => {
+              if (en.isIntersecting) {
+                en.target.style.opacity = '1';
+                en.target.style.transform = 'none';
+                io.unobserve(en.target);
+              }
+            });
+          }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+          els.forEach(e => io.observe(e));
+        }
+        initCursor() {
+          if (!this.fine || this.props.customCursor === false) return;
+          const dot = document.getElementById('ilk-cur');
+          const ring = document.getElementById('ilk-ring');
+          if (!dot || !ring) { document.documentElement.removeAttribute('data-cursor'); return; }
+          document.documentElement.setAttribute('data-cursor', 'on');
+          let tx = 0, ty = 0, rx = 0, ry = 0, scale = 1, target = 1, live = false;
+          const place = (el, x, y, s) => {
+            el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + s.toFixed(3) + ')';
+          };
+          const move = e => {
+            tx = e.clientX; ty = e.clientY;
+            if (!live) { live = true; rx = tx; ry = ty; dot.dataset.live = '1'; ring.dataset.live = '1'; }
+            const t = e.target && e.target.closest ? e.target.closest('a,button,[data-tilt]') : null;
+            const kind = !t ? '' : (t.hasAttribute('data-tilt') ? 'card' : 'link');
+            if (ring.dataset.on !== kind) ring.dataset.on = kind;
+            target = kind === 'card' ? 2.2 : kind === 'link' ? 1.6 : 1;
+          };
+          const loop = () => {
+            rx += (tx - rx) * 0.18; ry += (ty - ry) * 0.18;
+            scale += (target - scale) * 0.14;
+            place(dot, tx, ty, 1);
+            place(ring, rx, ry, scale);
+            this._raf = requestAnimationFrame(loop);
+          };
+          const hide = () => { dot.dataset.live = '0'; ring.dataset.live = '0'; };
+          const showAgain = () => { if (live) { dot.dataset.live = '1'; ring.dataset.live = '1'; } };
+          const down = () => { target *= 0.72; };
+          window.addEventListener('pointermove', move, { passive: true });
+          window.addEventListener('pointerdown', down, { passive: true });
+          document.addEventListener('mouseleave', hide);
+          document.addEventListener('mouseenter', showAgain);
+          window.addEventListener('blur', hide);
+          this._cleanCursor = () => {
+            window.removeEventListener('pointermove', move);
+            window.removeEventListener('pointerdown', down);
+            document.removeEventListener('mouseleave', hide);
+            document.removeEventListener('mouseenter', showAgain);
+            window.removeEventListener('blur', hide);
+            cancelAnimationFrame(this._raf);
+            document.documentElement.removeAttribute('data-cursor');
+          };
+          loop();
+        }
+
+        initTilt() {
+          if (!this.fine || this.reduced || this.props.tilt === false) return;
+          const max = this.props.tiltStrength == null ? 7 : this.props.tiltStrength;
+          document.querySelectorAll('[data-tilt]').forEach(card => {
+            card.style.transformStyle = 'preserve-3d';
+            card.style.willChange = 'transform';
+            let raf = null, ry = 0, rxr = 0, lift = 0;
+            const apply = () => {
+              raf = null;
+              card.style.transform = 'perspective(900px) rotateX(' + rxr.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateZ(' + lift.toFixed(1) + 'px)';
+            };
+            const queue = () => { if (!raf) raf = requestAnimationFrame(apply); };
+            card.addEventListener('pointerenter', () => {
+              card.style.transition = 'transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease';
+              lift = 14;
+              setTimeout(() => { card.style.transition = 'box-shadow .3s ease,border-color .3s ease'; }, 190);
+            });
+            card.addEventListener('pointermove', e => {
+              const r = card.getBoundingClientRect();
+              const px = (e.clientX - r.left) / r.width - 0.5;
+              const py = (e.clientY - r.top) / r.height - 0.5;
+              ry = px * max * 2; rxr = -py * max * 2; lift = 14;
+              card.style.setProperty('--gx', (px * 100 + 50).toFixed(1) + '%');
+              card.style.setProperty('--gy', (py * 100 + 50).toFixed(1) + '%');
+              queue();
+            });
+            card.addEventListener('pointerleave', () => {
+              card.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .3s ease';
+              ry = 0; rxr = 0; lift = 0;
+              queue();
+            });
+          });
+        }
+
+        componentWillUnmount() { if (this._cleanCursor) this._cleanCursor(); }
+
+        renderVals() { return {}; }
+      }
+    </script>
+  </body>
+</html>

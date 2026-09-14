@@ -1,0 +1,8 @@
+# Build output
+dist/
+
+# Reference copies of the original design-tool exports. Kept byte-for-byte so
+# they can be diffed against what they were; never edited or reformatted.
+design-source/
+
+package-lock.json

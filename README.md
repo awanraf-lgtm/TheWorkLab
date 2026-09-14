@@ -128,8 +128,8 @@ attribute to bring any of them back.
 
 - **The booking link is a placeholder.** `src/config.js` points at
   `https://calendly.com`. Replace it with the real scheduling URL.
-- **Pricing figures are placeholders** (`[$X,XXX]`), as are the company
-  registration and address in the footer — carried over from the design.
+- **Pricing figures are placeholders** (`[$X,XXX]`), carried over from the
+  design.
 - **Metadata uses `https://example.com`.** Update the canonical URL, the
   Open Graph URL, and `public/robots.txt` before launch. No `og-image.png`
   exists yet; social shares will have no preview image until one is added.

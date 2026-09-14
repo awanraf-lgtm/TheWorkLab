@@ -1,4 +1,4 @@
-# TheWorkLab
+# TheWorkLab01
 
 The website for TheWorkLab, an AI automation business. Built with Vite and
 plain HTML, CSS and JavaScript — no UI framework and no runtime dependencies

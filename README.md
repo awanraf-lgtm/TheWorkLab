@@ -1,8 +1,8 @@
-# TheWorkLab — marketing site
+# TheWorkLab
 
-Single-page marketing site for TheWorkLab, an AI automation audit and development
-consultancy. Built with Vite and plain HTML, CSS and JavaScript — no UI
-framework and no runtime dependencies beyond Three.js for the hero object.
+The website for TheWorkLab, an AI automation business. Built with Vite and
+plain HTML, CSS and JavaScript — no UI framework and no runtime dependencies
+beyond Three.js for the hero object.
 
 ## Requirements
 

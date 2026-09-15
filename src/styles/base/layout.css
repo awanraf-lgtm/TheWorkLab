@@ -1,8 +1,9 @@
 /**
- * Layout primitives — the container, section bands, the ambient background
- * wash, and the accessibility skip link.
+ * Layout primitives — the container, section shells, and the accessibility
+ * helpers (skip link, visually hidden text).
  */
 
+/* 160px side gutters on the 1920px design frame, shrinking with the viewport. */
 .container {
   max-width: var(--container-max);
   margin-inline: auto;
@@ -12,54 +13,31 @@
 .section {
   position: relative;
   z-index: var(--z-content);
-  border-bottom: 1px solid var(--surface-hairline);
 }
 
 .section__inner {
   padding-block: var(--section-pad);
 }
 
-/* Background treatment. Deliberately says nothing about light or dark — a
-   section's polarity comes from the `.theme-*` class beside it, and `--surface-bg`
-   resolves to whichever that theme defines. */
-.section--solid {
+/* Light sections paint the paper colour and close with a hairline. Painting
+   solid matters: the illustrations are exported on this exact colour. */
+.section--light {
+  border-bottom: 1px solid var(--surface-line);
   background-color: var(--surface-bg);
 }
 
-.section--solid-alt {
-  background-color: var(--surface-bg-alt);
+/* Intro block: eyebrow, heading, lede. */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9375rem; /* 15px */
+  max-width: var(--measure);
 }
 
-/* Lets the ambient wash show through rather than covering it. */
-.section--translucent {
-  background-color: transparent;
-}
-
-/* Intro block sitting above each section's content grid */
-.section__head {
-  max-width: 1000px;
-}
-
-/* Responsive auto-fit card grid. --grid-min sets the smallest a column may get
-   before the row wraps; sections override it rather than redeclaring the grid. */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, 280px), 100%), 1fr));
-  gap: var(--grid-gap);
-  margin-top: var(--space-xl);
-}
-
-/* Fixed ambient colour wash behind everything. Decorative only. Tuned for the
-   light page — the tints stay faint so body copy keeps its contrast. */
-.backdrop {
-  position: fixed;
-  z-index: var(--z-backdrop);
-  inset: 0;
-  background:
-    radial-gradient(52vw 52vw at 78% 8%, rgb(226 100 58 / 11%), transparent 62%),
-    radial-gradient(46vw 46vw at 8% 62%, rgb(92 152 128 / 9%), transparent 65%),
-    radial-gradient(60vw 40vw at 50% 108%, rgb(226 100 58 / 7%), transparent 70%);
-  pointer-events: none;
+.section-head--center {
+  align-items: center;
+  margin-inline: auto;
+  text-align: center;
 }
 
 /* Visible only once focused, for keyboard users landing on the page. */
@@ -70,12 +48,12 @@
   left: var(--space-2xs);
   padding: var(--space-xs) var(--space-sm);
   transform: translateY(-150%);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-accent);
+  border-radius: var(--radius-button);
+  background-color: var(--color-cta);
   color: var(--color-ink);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  letter-spacing: var(--tracking-wide);
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
   text-transform: uppercase;
   text-decoration: none;
   transition: transform var(--duration-base) var(--ease-out);

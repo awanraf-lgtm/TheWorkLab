@@ -13,7 +13,7 @@ html {
   scroll-behavior: smooth;
 
   /* Sticky header height, so in-page anchors are not hidden beneath it. */
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: var(--header-height);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -23,8 +23,8 @@ body {
   background-color: var(--surface-bg);
   color: var(--surface-text);
   font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

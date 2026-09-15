@@ -1,0 +1,89 @@
+/**
+ * Service sections — "Generative" and "Agentic artificial intelligence".
+ *
+ * Desktop: intro and capability list in a 920px column, 680 × 520
+ * illustration beside them (57.5 : 42.5 on the 1600px content width).
+ * Narrow: the illustration moves up between the intro and the list, so it is
+ * not stranded below a long list.
+ */
+
+.capabilities__inner {
+  display: grid;
+  grid-template:
+    'head   visual' auto
+    'list   visual' 1fr / minmax(0, 57.5fr) minmax(0, 42.5fr);
+  row-gap: var(--space-xl); /* 44px */
+  align-items: start;
+}
+
+.capabilities__inner .section-head {
+  grid-area: head;
+}
+
+/* The lede sits 5px lower than the shared head spacing in the design. */
+.capabilities__inner .lede {
+  padding-top: 5px;
+}
+
+/* The illustration spans both grid rows, so its grid area runs the full height
+   of the intro and list. Sticky positioning keeps it in view inside that area
+   while the text column scrolls past, and releases it when the list ends. */
+.capabilities__visual {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-2xl));
+  grid-area: visual;
+  margin: 0;
+}
+
+.capabilities__visual img {
+  display: block;
+  width: 100%;
+  max-width: 680px;
+  height: auto;
+  aspect-ratio: 680 / 520;
+}
+
+.capabilities__list-block {
+  grid-area: list;
+}
+
+.capabilities__list-title {
+  margin: 0;
+  color: var(--surface-heading);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--leading-body);
+}
+
+.capabilities__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (width <= 60rem) {
+  .capabilities__inner {
+    grid-template:
+      'head' auto
+      'visual' auto
+      'list' auto / minmax(0, 1fr);
+    row-gap: var(--space-lg);
+  }
+
+  /* Stacked, the illustration sits between intro and list; pinning it there
+     would cover the list as it scrolls. */
+  .capabilities__visual {
+    position: static;
+  }
+
+  .capabilities__visual img {
+    margin-inline: auto;
+  }
+}
+
+@media (width <= 40rem) {
+  /* The list's 24px inset is generous next to a 20px page gutter. */
+  .capabilities__list .capability {
+    padding-inline: 0;
+  }
+}

@@ -1,82 +1,48 @@
 /**
- * Buttons — all call-to-action links.
- * Hover states here replace the design tool's `style-hover` attributes.
+ * Buttons — the orange "Schedule a call" and "Submit" actions.
+ *
+ * Resting state is the Figma component (8px radius, Miriam Libre SemiBold 14,
+ * uppercase). The hover lift is the site's existing interaction, carried over.
  */
 
 .btn {
-  display: inline-block;
-  padding: 1.125rem 1.875rem;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: var(--tracking-wide);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8125rem 1.375rem; /* 13px 22px */
+  border: 1px solid var(--color-cta);
+  border-radius: var(--radius-button);
+  background-color: var(--color-cta);
+  color: var(--color-paper);
+  font: 600 var(--text-small) / normal var(--font-display);
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     transform var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) ease,
-    background-color var(--duration-fast) ease,
-    border-color var(--duration-base) ease,
-    color var(--duration-fast) ease;
+    filter var(--duration-fast) ease;
 }
 
-/* Primary — copper. Identical on either surface: it is the one element that
-   should not change with the background. */
-.btn--primary {
-  background-color: var(--color-accent);
-  box-shadow: var(--shadow-button);
-  color: var(--color-ink);
-}
-
-.btn--primary:hover {
+.btn:hover {
   transform: translateY(-4px) scale(1.025);
-  background-color: var(--color-accent-bright);
-  box-shadow: var(--shadow-button-hover);
-  color: var(--color-ink);
+  box-shadow: 0 18px 32px -14px rgb(234 111 63 / 70%);
+  color: var(--color-paper);
+  filter: brightness(1.06);
 }
 
-/* Secondary — outlined glass, following the surface it sits on. */
-.btn--ghost {
-  border-color: var(--surface-outline);
-  background-color: var(--surface-outline-bg);
-  backdrop-filter: blur(12px);
-  color: var(--surface-outline-text);
-  font-weight: 500;
+.btn:active {
+  transform: translateY(-1px) scale(1);
 }
 
-.btn--ghost:hover {
-  transform: translateY(-4px);
-  border-color: rgb(226 100 58 / 70%);
-  background-color: rgb(226 100 58 / 12%);
-  box-shadow: 0 20px 34px -18px rgb(20 22 26 / 35%);
-  color: var(--surface-outline-text);
+/* Header variant — 9px 16px in the design. */
+.btn--compact {
+  padding: 0.5625rem 1rem;
 }
 
-/* Solid, in the opposite polarity to the surface — used on pricing cards. */
-.btn--contrast {
-  background-color: var(--surface-heading);
-  box-shadow: var(--shadow-button-dark);
-  color: var(--surface-bg);
-}
-
-.btn--contrast:hover {
-  transform: translateY(-4px) scale(1.02);
-  background-color: var(--surface-text);
-  box-shadow: var(--shadow-button-dark-hover);
-  color: var(--surface-bg);
-}
-
-/* Compact variant for the sticky header */
-.btn--sm {
-  padding: 0.8125rem 1.375rem;
-  font-size: var(--text-sm);
-}
-
-/* Full-width, bottom-aligned in a pricing card */
-.btn--block {
-  display: block;
-  margin-top: auto;
+/* Form submit — 15px 26px in the design. */
+.btn--large {
+  padding: 0.9375rem 1.625rem;
 }

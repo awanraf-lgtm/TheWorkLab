@@ -8,17 +8,16 @@
 
 import './styles/main.css';
 
-import { applyBookingLinks } from './config.js';
 import { initReveal } from './scripts/reveal.js';
 import { initCursor } from './scripts/cursor.js';
 import { initTilt } from './scripts/tilt.js';
+import { initContactForm } from './scripts/contact-form.js';
 import { defineWorklabKnot3D } from './scripts/worklab-knot-3d.js';
 
 function start() {
-  applyBookingLinks();
   defineWorklabKnot3D();
 
-  const teardowns = [initReveal(), initCursor(), initTilt()];
+  const teardowns = [initReveal(), initCursor(), initTilt(), initContactForm()];
 
   // Vite replaces modules in place during development; drop listeners and
   // animation frames first so they do not accumulate across reloads.

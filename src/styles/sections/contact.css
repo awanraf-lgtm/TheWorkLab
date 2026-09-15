@@ -1,0 +1,88 @@
+/**
+ * "Let's talk" — intro beside the contact form, on the dark surface.
+ *
+ * Desktop: 657px intro, 158px gap, form fills the rest. The form switches back
+ * to the light theme so its fields match the design.
+ */
+
+.contact__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 657fr) minmax(0, 785fr);
+  gap: clamp(2.5rem, 8.23vw, 9.875rem); /* 158px */
+  align-items: start;
+}
+
+.contact__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.contact__lede {
+  margin: 0;
+  color: var(--surface-text);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: flex-end;
+  margin: 0;
+}
+
+.contact__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.contact__form .field--textarea {
+  width: 100%;
+}
+
+/* Announced to screen readers when the form hands off to the mail app. */
+.contact__status {
+  align-self: stretch;
+  margin: 0;
+  color: var(--color-text-on-dark);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+}
+
+.contact__status:empty {
+  display: none;
+}
+
+/* Colour reinforces the message; the wording alone carries the meaning. */
+.contact__status[data-tone='success'] {
+  color: #8fd19e;
+}
+
+.contact__status[data-tone='error'] {
+  color: #f2a38a;
+}
+
+.contact__form[aria-busy='true'] .btn {
+  cursor: progress;
+  opacity: 0.75;
+}
+
+@media (width <= 64rem) {
+  .contact__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width <= 40rem) {
+  .contact__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__form .btn {
+    align-self: stretch;
+  }
+}

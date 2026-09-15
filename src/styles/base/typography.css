@@ -1,89 +1,59 @@
 /**
- * Typography — display faces, headings, prose and the small uppercase
+ * Typography — the display headings, section intros, and the small uppercase
  * "eyebrow" label that introduces every section.
  *
- * Colours come from the surface theme in scope, so these rules are identical
- * on light and dark sections.
+ * Sizes and tracking come from the Figma text styles. Colours come from the
+ * surface theme in scope, so these rules are identical on light and dark.
  */
 
 .display-1,
 .display-2,
-.display-3 {
+.display-2-compact {
+  margin: 0;
   color: var(--surface-heading);
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: var(--tracking-display);
 
-  /* The tight negative tracking pulls word spaces shut at display sizes —
-     without this, uppercase pairs read as one word ("FEATUREYOUR"). */
+  /* The negative tracking pulls word spaces shut at display sizes — without
+     this, uppercase pairs read as one word ("WORKYOUR"). */
   word-spacing: 0.08em;
   text-transform: uppercase;
   text-wrap: balance;
 }
 
 .display-1 {
-  margin: clamp(1.25rem, 3vw, 2.125rem) 0 0;
-  font-size: var(--text-display-1);
-  line-height: 0.94;
-  letter-spacing: -0.035em;
-}
-
-.display-1__line {
-  display: block;
+  font-size: var(--text-h1);
+  line-height: var(--leading-h1);
 }
 
 .display-2 {
-  margin: var(--space-md) 0;
-  font-size: var(--text-display-2);
-  line-height: var(--leading-tight);
+  font-size: var(--text-h2);
+  line-height: var(--leading-h2);
 }
 
-.display-3 {
-  margin: 0 0 0.875rem;
-  font-size: var(--text-display-3);
-  letter-spacing: var(--tracking-heading);
-  text-transform: none;
+/* "Let's talk" — Figma's "Heading 2 upper" style, a step smaller. */
+.display-2-compact {
+  font-size: var(--text-h2-compact);
+  line-height: var(--leading-h2-compact);
 }
 
-.accent-text {
-  color: var(--surface-accent);
-}
-
-/* Small uppercase label: "01 / The problem" */
+/* Small uppercase label: "The work lab", "We build AI solutions" */
 .eyebrow {
   display: block;
+  margin: 0;
   color: var(--surface-accent);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-widest);
+  font-family: var(--font-body);
+  font-size: var(--text-eyebrow);
+  line-height: normal;
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
 }
 
-.eyebrow--muted {
-  color: var(--surface-muted);
-}
-
-/* Body copy */
+/* Section intro paragraph */
 .lede {
-  max-width: var(--measure);
   margin: 0;
-  font-size: var(--text-md);
-  line-height: var(--leading-relaxed);
-}
-
-.prose {
-  margin: 0;
-  font-size: 0.90625rem; /* 14.5px */
-  line-height: 1.7;
-}
-
-.statement {
-  max-width: 900px;
-  margin: var(--space-xl) 0 0;
   color: var(--surface-heading);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.25rem, 2.6vw, 2rem);
-  line-height: var(--leading-snug);
-  letter-spacing: var(--tracking-heading);
-  text-wrap: pretty;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
 }

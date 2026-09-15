@@ -3,30 +3,21 @@
  */
 
 export const site = {
-  name: 'TheWorkLab',
+  name: 'The Work Lab',
+
   /**
-   * Scheduling link behind every "book a call" action.
+   * Contact form delivery, via FormSubmit (formsubmit.co) — a free service that
+   * emails form submissions to an address, with no account or server needed.
    *
-   * PLACEHOLDER — replace with the real Calendly (or other scheduler) URL.
-   * It is applied to every `[data-booking-link]` element at runtime, so this
-   * is the only line that needs to change.
+   * The first submission triggers a one-time "Activate form" email to the
+   * address; nothing is delivered until that link is clicked.
+   *
+   * After activation, FormSubmit offers a random alias to use instead of the
+   * address (so it isn't visible in the page source). Swap it in here and in
+   * the form's `action` in index.html.
    */
-  bookingUrl: 'https://calendly.com',
-  email: 'hello@theworklab.example',
+  contactEndpoint: 'https://formsubmit.co/ajax/awan.raf@gmail.com',
+
+  /** Subject line of the email each submission sends. */
+  contactSubject: 'New enquiry from The Work Lab website',
 };
-
-/**
- * Points every booking call-to-action at `site.bookingUrl` and marks the links
- * as opening a new tab, with the rel hardening that implies.
- */
-export function applyBookingLinks(root = document) {
-  const links = root.querySelectorAll('[data-booking-link]');
-
-  links.forEach((link) => {
-    link.href = site.bookingUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-  });
-
-  return links.length;
-}

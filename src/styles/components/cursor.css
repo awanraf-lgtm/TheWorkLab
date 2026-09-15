@@ -26,18 +26,26 @@
   will-change: transform;
 }
 
+/* Sizes are 65% of the original 7px dot and 40px ring (35% smaller). The hover
+   states scale the ring relative to this base (scripts/cursor.js), so they
+   shrink by the same 35% without any change there. */
+:root {
+  --cursor-dot-size: 4.55px;
+  --cursor-ring-size: 26px;
+}
+
 .cursor-dot {
-  width: 7px;
-  height: 7px;
-  margin: -3.5px 0 0 -3.5px;
+  width: var(--cursor-dot-size);
+  height: var(--cursor-dot-size);
+  margin: calc(var(--cursor-dot-size) / -2) 0 0 calc(var(--cursor-dot-size) / -2);
   background-color: var(--color-accent);
-  box-shadow: 0 0 12px rgb(226 100 58 / 90%);
+  box-shadow: 0 0 7.8px rgb(226 100 58 / 90%);
 }
 
 .cursor-ring {
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
+  width: var(--cursor-ring-size);
+  height: var(--cursor-ring-size);
+  margin: calc(var(--cursor-ring-size) / -2) 0 0 calc(var(--cursor-ring-size) / -2);
   border: 1px solid rgb(58 63 71 / 45%);
   background-color: rgb(58 63 71 / 5%);
   backdrop-filter: blur(1px);

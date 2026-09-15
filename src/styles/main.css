@@ -1,8 +1,9 @@
 /**
- * TheWorkLab — stylesheet entry point.
+ * The Work Lab — stylesheet entry point.
  *
  * Import order matters: tokens must resolve before anything consumes them,
- * and specificity rises from base → components → sections.
+ * and specificity rises from base → components → sections. Sections are listed
+ * in page order.
  */
 
 /* Base */
@@ -15,6 +16,7 @@
 /* Components */
 @import './components/button.css';
 @import './components/card.css';
+@import './components/field.css';
 @import './components/logo.css';
 @import './components/cursor.css';
 @import './components/reveal.css';
@@ -22,6 +24,7 @@
 /* Sections */
 @import './sections/header.css';
 @import './sections/hero.css';
-@import './sections/pricing.css';
-@import './sections/booking.css';
+@import './sections/expertise.css';
+@import './sections/capabilities.css';
+@import './sections/contact.css';
 @import './sections/footer.css';

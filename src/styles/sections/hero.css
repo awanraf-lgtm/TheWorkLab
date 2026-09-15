@@ -1,64 +1,70 @@
 /**
- * Hero — headline and stats beside the animated 3D mark.
+ * Hero — headline beside the 3D knot.
+ *
+ * On the 1920px frame the content column is 735px and the knot well 865 × 680.
+ * The columns keep that 46 : 54 split as the viewport narrows, then stack.
  */
+
+.hero {
+  border-bottom: 1px solid var(--surface-line);
+}
 
 .hero__inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(430px, 100%), 1fr));
-  gap: clamp(2rem, 5vw, 3.5rem);
+  grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
   align-items: center;
-  padding-block: clamp(3rem, 7vw, 6rem) 0;
+  min-height: min(44vw, 52.8125rem); /* 845px at 1920 */
+  padding-block: clamp(2rem, 3.28vw, 3.9375rem); /* 63px */
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.21875rem; /* 19.5px */
+  align-items: flex-start;
+
+  /* In Figma this block is a fixed 227.5px box that the hero centres, with the
+     taller content spilling out below it — so the text sits ~43px lower than
+     true centre. The margin reproduces that position (85.5px = twice the
+     offset, because the grid centres the margin box). */
+  margin-top: clamp(0px, 4.453vw, 5.34375rem);
 }
 
 .hero__lede {
-  max-width: var(--measure-narrow);
-  margin: clamp(1.5rem, 3vw, 2.125rem) 0 0;
-  font-size: 0.96875rem; /* 15.5px */
-  line-height: var(--leading-relaxed);
+  margin: 0;
+  color: var(--surface-text);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
 }
 
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  align-items: center;
-  margin-top: 2.25rem;
-}
-
-/* Three figures above the fold: duration, scope, depth. */
-.hero__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1.25rem, 3vw, 2.75rem);
-  margin: clamp(2.5rem, 5vw, 3.75rem) 0 clamp(2.5rem, 5vw, 4.5rem);
-  border-top: 1px solid var(--surface-line);
-  padding-top: 1.375rem;
-}
-
-.stat__value {
-  color: var(--surface-heading);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--text-stat);
-  line-height: 1.1;
-}
-
-.stat__label {
-  color: var(--surface-muted);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-}
-
-/* Canvas well. Reserves its height before the 3D scene loads so the hero
-   never shifts underneath the reader. */
+/* Canvas well. Reserves its space before the 3D scene loads so the hero never
+   shifts underneath the reader. */
 .hero__visual {
   position: relative;
-  min-height: clamp(20rem, 44vw, 35rem);
+  width: 100%;
+  aspect-ratio: 865 / 680;
 }
 
 .hero__visual worklab-knot-3d {
   position: absolute;
   display: block;
   inset: 0;
+}
+
+@media (width <= 60rem) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+    min-height: 0;
+    padding-block: var(--space-2xl) var(--space-md);
+  }
+
+  .hero__content {
+    margin-top: 0;
+  }
+
+  .hero__visual {
+    max-height: 26rem;
+    margin-inline: auto;
+  }
 }

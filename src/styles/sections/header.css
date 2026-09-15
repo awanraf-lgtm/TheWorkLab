@@ -1,37 +1,37 @@
 /**
- * Sticky site header with a frosted backdrop.
+ * Sticky site header.
  */
 
 .site-header {
   position: sticky;
   z-index: var(--z-header);
   top: 0;
-  border-bottom: 1px solid var(--surface-hairline);
-  background-color: var(--surface-header-bg);
-  backdrop-filter: var(--blur-header);
+  border-bottom: 1px solid var(--surface-line);
+  background-color: var(--surface-bg);
+  backdrop-filter: blur(5px);
 }
 
+/* 24px of extra inset inside the container, per the design. */
 .site-header__inner {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(1rem, 3vw, 2.5rem);
+  gap: 0.875rem;
   align-items: center;
-  min-height: 4.75rem;
+  justify-content: space-between;
+  min-height: 4rem; /* 64px */
+  padding-inline: calc(var(--container-pad) + var(--space-md));
 }
 
+/* Pushes the nav and CTA to the right; the inner gap (14px) separates them. */
 .site-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1rem, 3vw, 2.5rem);
-  align-items: center;
   margin-left: auto;
 }
 
 .site-nav__link {
+  padding: var(--space-2xs) 4px;
   color: var(--surface-text);
-  font-size: var(--text-sm);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
+  font-size: var(--text-nav);
+  line-height: normal;
   text-decoration: none;
 }
 
@@ -39,33 +39,23 @@
   color: var(--surface-accent);
 }
 
-/* Below the wrap point the nav drops to its own line. The header stays sticky,
-   so it is kept as short as possible — it is competing with the content for a
-   small viewport. */
-@media (width <= 40rem) {
-  .site-header__inner {
-    row-gap: var(--space-2xs);
-    min-height: 0;
-    padding-block: var(--space-2xs);
-  }
-
-  /* Two rows: the mark and the CTA share the first, the section links take
-     the second. Reordering keeps the CTA beside the mark without moving it
-     out of its logical place in the document. */
-  .logo {
-    order: 1;
+/* Tablet and phone: the header is just the lock-up and the CTA. The only nav
+   destination is the next section down, so the link is dropped rather than
+   squeezed; the CTA takes over the right-hand slot. */
+@media (width <= 64rem) {
+  .site-nav {
+    display: none;
   }
 
   .site-header__cta {
-    order: 2;
     margin-left: auto;
-    padding: 0.625rem 0.875rem;
   }
+}
 
-  .site-nav {
-    order: 3;
-    gap: var(--space-sm);
-    margin-left: 0;
-    width: 100%;
+/* Narrow screens: drop the extra inset so the header lines up with the page
+   gutter. */
+@media (width <= 40rem) {
+  .site-header__inner {
+    padding-inline: var(--container-pad);
   }
 }

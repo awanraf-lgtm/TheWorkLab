@@ -1,0 +1,107 @@
+/**
+ * Form fields — inputs, selects and the message box.
+ *
+ * The design shows each label inside its field, like a placeholder. Real
+ * placeholders are not labels (screen readers and autofill treat them
+ * differently, and they vanish on focus), so each field has a proper <label>
+ * positioned over the control, which hides once the field holds a value.
+ *
+ * Markup order matters: the control comes first so the label can react to its
+ * state with the sibling selector.
+ */
+
+.field {
+  position: relative;
+  min-width: 0;
+}
+
+.field__control {
+  display: block;
+  width: 100%;
+  height: 3.5rem; /* 56px */
+  padding: 0 var(--space-md);
+  border: 1px solid var(--surface-line);
+  border-radius: var(--radius-card);
+  background-color: var(--surface-field-bg);
+  color: var(--color-ink);
+  font: var(--text-small) / var(--leading-field) var(--font-body);
+  transition: border-color var(--duration-fast) ease;
+}
+
+.field__control:focus {
+  border-color: var(--color-ink);
+  outline: 2px solid var(--color-cta);
+  outline-offset: 2px;
+}
+
+/* Only flag a field once the visitor has interacted with it, not on load. */
+.field__control:user-invalid {
+  border-color: #c2412d;
+}
+
+.field__label {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--space-md) + 1px);
+  transform: translateY(-50%);
+  color: var(--surface-muted);
+  font: var(--text-small) / var(--leading-field) var(--font-body);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.field__required {
+  color: var(--color-cta);
+}
+
+/* Hide the label once there is something in the field.
+   - Text fields carry a single-space placeholder purely so :placeholder-shown
+     can detect "empty". It must be scoped to input/textarea: a <select> can
+     never show a placeholder, so it would always match and lose its label.
+   - Selects are required with an empty first option, so they only become
+     :valid once a real choice is made. */
+.field__control:is(input, textarea):not(:placeholder-shown) + .field__label,
+.field__control--select:valid + .field__label {
+  opacity: 0;
+}
+
+/* A select's label must stop short of the chevron. On narrow screens the long
+   labels ("No. of employees at your company") then wrap to two lines, which
+   still fit inside the 56px field, instead of running under the arrow. */
+.field--select .field__label {
+  right: calc(var(--space-md) * 2 + 24px);
+  white-space: normal;
+}
+
+/* Selects: native control, restyled, with the design's chevron. */
+.field__control--select {
+  padding-right: calc(var(--space-md) * 2 + 24px);
+  background-image: url('../../assets/icons/keyboard-arrow-down@3x.png');
+  background-position: right var(--space-md) center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  cursor: pointer;
+  appearance: none;
+}
+
+/* Keeps the chosen option readable, and the hidden prompt option out of the list. */
+.field__control--select:invalid {
+  color: transparent;
+}
+
+.field__control--select option {
+  color: var(--color-ink);
+}
+
+/* Message box — 129px tall, label pinned to the top. */
+.field__control--textarea {
+  height: 8.0625rem;
+  padding-block: var(--space-md);
+  resize: vertical;
+}
+
+.field--textarea .field__label {
+  top: var(--space-md);
+  transform: none;
+}

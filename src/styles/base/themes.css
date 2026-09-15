@@ -7,70 +7,35 @@
  * and dark is therefore a one-class change, not a rewrite.
  *
  * The site is light-first: `:root` carries the light set, so anything outside
- * an explicit `.theme-dark` inherits it.
+ * an explicit `.theme-dark` inherits it. A light element inside a dark section
+ * (the expertise cards, the contact form) takes `.theme-light` to switch back.
  */
 
 :root,
 .theme-light {
   --surface-bg: var(--color-paper);
-  --surface-bg-alt: var(--color-paper-alt);
-  --surface-text: var(--color-text-on-paper);
-  --surface-heading: var(--color-text-on-paper-strong);
-  --surface-strong: var(--color-text-on-paper-strong);
-  --surface-muted: var(--color-text-on-paper-muted);
-  --surface-faint: var(--color-text-on-paper-faint);
-
-  /* The accent darkens on light surfaces to hold its contrast ratio. */
-  --surface-accent: var(--color-accent-deep);
-
+  --surface-text: var(--color-text-body);
+  --surface-heading: var(--color-ink);
+  --surface-muted: var(--color-text-placeholder);
+  --surface-accent: var(--color-cta);
   --surface-line: var(--color-paper-line);
-  --surface-line-soft: var(--color-paper-line-soft);
-  --surface-hairline: rgb(20 22 26 / 8%);
-
-  --surface-card-bg: var(--glass-paper);
-  --surface-card-border: rgb(255 255 255 / 90%);
-  --surface-card-shadow: var(--shadow-card-paper);
-  --surface-panel-shadow: var(--shadow-panel-paper);
-
-  /* Chrome: the sticky header's translucent backdrop. */
-  --surface-header-bg: rgb(245 243 239 / 72%);
-
-  /* Ghost buttons and other outlined controls. */
-  --surface-outline: rgb(20 22 26 / 16%);
-  --surface-outline-bg: rgb(20 22 26 / 4%);
-  --surface-outline-text: var(--color-text-on-paper-strong);
+  --surface-divider: var(--color-divider);
+  --surface-card-bg: var(--color-paper-card);
+  --surface-field-bg: var(--color-paper);
 }
 
 /* A dark block paints itself, so `.theme-dark` alone is enough to flip an
-   element — there is no way to end up with light text on a light background by
-   forgetting a second class. Light blocks inherit the page background and stay
-   transparent by default, which lets the ambient wash show through. */
+   element — it cannot leave light text on a light background by forgetting a
+   second class. */
 .theme-dark {
   background-color: var(--surface-bg);
   color: var(--surface-text);
 
   --surface-bg: var(--color-ink);
-  --surface-bg-alt: var(--color-ink-raised);
-  --surface-text: var(--color-text);
-  --surface-heading: var(--color-text-heading);
-  --surface-strong: var(--color-text-strong);
-  --surface-muted: var(--color-text-muted);
-  --surface-faint: var(--color-text-faint);
-
-  --surface-accent: var(--color-accent);
-
-  --surface-line: var(--color-ink-line);
-  --surface-line-soft: var(--color-ink-line-soft);
-  --surface-hairline: rgb(255 255 255 / 8%);
-
-  --surface-card-bg: var(--glass-dark);
-  --surface-card-border: rgb(255 255 255 / 9%);
-  --surface-card-shadow: var(--shadow-card-dark);
-  --surface-panel-shadow: var(--shadow-panel-dark);
-
-  --surface-header-bg: rgb(13 14 16 / 62%);
-
-  --surface-outline: rgb(255 255 255 / 16%);
-  --surface-outline-bg: rgb(255 255 255 / 5%);
-  --surface-outline-text: var(--color-text-strong);
+  --surface-text: var(--color-text-on-dark);
+  --surface-heading: var(--color-text-on-dark);
+  --surface-muted: var(--color-text-on-dark-muted);
+  --surface-accent: var(--color-cta);
+  --surface-line: var(--color-paper-line);
+  --surface-divider: rgb(245 243 239 / 15%);
 }

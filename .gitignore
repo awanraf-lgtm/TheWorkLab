@@ -5,6 +5,10 @@ node_modules/
 dist/
 *.local
 
+# Cloudflare Wrangler local state
+.wrangler/
+.dev.vars*
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

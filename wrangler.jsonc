@@ -1,0 +1,22 @@
+// Cloudflare Workers deployment.
+//
+// The site is fully static, so there is no Worker script: Cloudflare serves the
+// files Vite builds into `dist/` directly as static assets. (The contact form
+// sends through FormSubmit, so no email configuration is needed here.)
+//
+// Cloudflare runs `npm run build` and then `npx wrangler deploy`, which reads
+// this file.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Must match the Worker's name in the Cloudflare dashboard, or the deploy
+  // targets a different Worker (or fails).
+  "name": "theworklab",
+
+  // Pins the Workers runtime behaviour. Only change it deliberately.
+  "compatibility_date": "2026-09-15",
+
+  "assets": {
+    "directory": "./dist",
+  },
+}

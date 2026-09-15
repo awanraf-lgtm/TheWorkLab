@@ -15,7 +15,8 @@
     "lint:fix": "eslint . --fix && stylelint \"src/**/*.css\" --fix",
     "format": "prettier --write \"**/*.{js,css,html,json,md}\"",
     "format:check": "prettier --check \"**/*.{js,css,html,json,md}\"",
-    "check": "npm run format:check && npm run lint && npm run build"
+    "check": "npm run format:check && npm run lint && npm run build",
+    "deploy:check": "npm run build && wrangler deploy --dry-run"
   },
   "dependencies": {
     "three": "^0.160.1"
@@ -27,7 +28,8 @@
     "prettier": "^3.4.2",
     "stylelint": "^16.12.0",
     "stylelint-config-standard": "^36.0.1",
-    "vite": "^6.0.7"
+    "vite": "^6.0.7",
+    "wrangler": "^4.131.2"
   },
   "browserslist": [
     "defaults",
